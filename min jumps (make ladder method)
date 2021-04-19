@@ -1,0 +1,32 @@
+ static int minJumps(int[] arr){
+        if(arr.length == 1){return 1;}
+        if(arr[0] == 0){return -1;}
+        
+        int ladder = arr[0];
+        int stairs = arr[0];
+        int jumps = 1;
+        
+        for(int i = 1; i < arr.length ; i++){
+            if(i==arr.length-1){return jumps;}
+            
+            // make ladder
+            if(ladder < arr[i] + i){
+                ladder = arr[i]+i;
+            }
+            
+            // decrease stairs
+            stairs--;
+            
+            // update stairs 
+            if(stairs == 0){
+                jumps++;
+                if(ladder == i){
+                    return -1;
+                }
+                stairs = ladder - i;
+            }
+            
+        }
+        
+      return 1;  
+    }
