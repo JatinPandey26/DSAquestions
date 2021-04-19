@@ -1,0 +1,19 @@
+public static int kadane(int[] arr){
+        int csum = 0;
+        int msum = 0;
+        
+        for(int x : arr){
+            if(csum>0){
+                csum += x;
+            }
+            else{
+                csum = x;
+            }
+            if(msum < csum){
+                msum = csum;
+            }
+        }
+        return msum;
+        
+        
+    }
