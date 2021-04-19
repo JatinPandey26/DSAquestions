@@ -1,0 +1,49 @@
+/*package whatever //do not write package name here */
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+    public static int partitition(int[] arr,int pivot ,int li, int hi){
+        int i = li; int j = li;
+        while(i<=hi){
+            if(arr[i] <= pivot ){
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                i++;
+                j++;
+                
+            }
+            else{
+                i++;
+            }
+            
+        }
+        return j-1;
+    }
+    public static int quickSelect(int[] arr , int li , int hi , int k){
+        int pivot = arr[hi];
+        int pi = partitition(arr,pivot,li,hi);
+        
+        if(k > pi ){
+           return  quickSelect(arr,pi+1, hi, k);
+        }
+        else if(k < pi){
+          return   quickSelect(arr,li,pi-1,k);
+        }
+        return arr[pi];
+     
+    }
+	public static void main (String[] args) {
+		Scanner sn = new Scanner(System.in);
+		int  n = sn.nextInt();
+		int[] arr = new int[n]; 
+		for(int i = 0; i< n ; i++){
+		    arr[i] = sn.nextInt();
+		}
+		int k = sn.nextInt();
+		
+		System.out.println(quickSelect(arr,0,n-1,k-1));
+	}
+}
