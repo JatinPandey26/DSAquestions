@@ -1,0 +1,47 @@
+  public static void findNums(int[] arr){
+        
+        int xor = 0;
+        int set_bit ;
+        
+        for(int x: arr){
+            xor ^= x;
+            
+        }
+        for(int i = 0 ; i <= arr.length ; i++){
+            xor ^= i;
+        }
+        
+        set_bit = xor & ~(xor - 1);
+        
+        int a = 0;
+        int b = 0;
+        
+        for(int x : arr){
+            if((set_bit ^ x ) != 0){
+               a ^= x; 
+            }
+            else{
+                b ^= x;
+            }
+        }
+        for(int i = 0 ; i <= arr.length ;i++){
+             if((set_bit ^ i ) != 0){
+               a ^= i; 
+            }
+            else{
+                b ^= i;
+            }
+        }
+      for(int x : arr){
+          if(x == a){
+              System.out.println("Reapeating Number = "+ a);
+              System.out.println("Missing Number = "+ b);
+              break;
+          }
+          else if(x == b){
+              System.out.println("Reapeating Number = "+ b);
+               System.out.println("Missing Number = "+ a);
+               break;
+          }
+      }
+    }
