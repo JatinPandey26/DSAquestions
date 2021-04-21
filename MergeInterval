@@ -1,0 +1,24 @@
+  public static int[][] mergeInterval(int [][] intervals){
+        
+        ArrayList<int[]> res = new ArrayList<>();
+        
+        Arrays.sort( intervals , (a,b) -> a[0] - b[0] );
+        
+        int start = intervals[0][0];
+        int end = intervals[0][1];
+        
+        for(int[] itv : intervals){
+            if(end >= itv[0] ){
+                end = Math.max(end,itv[1]);
+            }
+            else{
+                res.add(new int[]{start,end});
+                start = itv[0];
+                end = itv[1];
+            }
+        } 
+          res.add(new int[]{start,end});
+          return res.toArray(new int[0][]);
+        
+        
+    }
