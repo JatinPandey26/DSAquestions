@@ -1,0 +1,19 @@
+ public static int maxProfitOneTrans(int [] arr){
+        if(arr.length == 0){
+            return 0;
+        }
+        
+        int buy_price = arr[0];
+        int max_profit = Integer.MIN_VALUE;
+        
+        for(int i = 1; i< arr.length ; i++ ){
+            buy_price = Math.min(buy_price,arr[i]);
+            max_profit = Math.max(max_profit,arr[i] - buy_price);
+        }
+        if(max_profit == Integer.MIN_VALUE){
+            return 0;
+        }
+        return max_profit;
+        
+        
+    }
