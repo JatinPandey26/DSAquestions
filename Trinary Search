@@ -1,0 +1,23 @@
+static int triSearch(int[]arr , int l , int r , int k){
+       if(l <= r){  int mid1 = l + (r-l)/3;
+       int mid2 = r - (r-l)/3;
+       
+       if(arr[mid1] == k){
+           return 1;
+       }
+       if(arr[mid2] == k){
+           return 1;
+       }
+       
+       if(k > arr[mid2] ){
+         return  triSearch(arr,mid2 + 1 , r , k);
+       }
+       else if(k < arr[mid1]){
+         return   triSearch(arr,l,mid1-1,k);
+       }
+       else{
+         return   triSearch(arr,mid1+1,mid2-1,k);
+       }}
+       
+       return -1;
+     }
