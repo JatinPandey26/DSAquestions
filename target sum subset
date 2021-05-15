@@ -1,0 +1,16 @@
+    public static void printTargetSumSubsets(int[] arr, int idx, String set, int sos, int tar) {
+       
+       if(sos == tar ){
+            System.out.println(set + ".");
+            return;
+        }if(idx == arr.length ){
+            
+            return;
+        }
+        
+        
+        printTargetSumSubsets(arr,idx+1,set+arr[idx] + ", ",sos+arr[idx],tar);
+          printTargetSumSubsets(arr,idx+1,set ,sos ,tar);
+        
+    }
+    
