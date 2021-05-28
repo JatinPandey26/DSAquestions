@@ -1,0 +1,42 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+  Scanner sn = new Scanner(System.in);
+     int n = sn.nextInt();
+     int k = sn.nextInt();
+     
+     int[][] arr = new int[n][k];
+     
+     for(int i = 0 ; i < n ; i++){
+         for(int j = 0 ; j < k ; j++ ){
+             arr[i][j] = sn.nextInt();
+         }
+     }
+     
+     int [][] dp = new int[n][k];
+     for(int i = 0 ; i < n ; i++){
+         for(int j = 0 ; j < k ; j++){
+             if(i == 0){
+                 dp[i][j] = arr[i][j];
+                 
+             }
+             else{
+                 int min = Integer.MAX_VALUE;
+                 for(int p = 0 , r = i-1 ; p < k ; p++){
+                   if(p != j)
+                   {  min = Math.min(dp[r][p] , min);}
+                 }
+                 dp[i][j] = min + arr[i][j];
+             }
+         }
+     }
+     int ans = Integer.MAX_VALUE;
+     for(int i = n-1 , j = 0 ; j < k ; j++){
+         ans = Math.min(ans , dp[i][j] );
+     }
+     System.out.println(ans);
+    }
+}
