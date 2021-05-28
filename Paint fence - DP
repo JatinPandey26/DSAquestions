@@ -1,0 +1,21 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+ Scanner sn = new Scanner(System.in);
+  int n = sn.nextInt();
+  int k = sn.nextInt();
+  
+  int cont = k ; 
+  int disc = k*(k-1);
+  
+  for(int i = 3 ; i <= n ; i++){
+      int total = cont + disc ;
+      cont = disc;
+      disc = total*(k-1);
+  }
+  System.out.println(cont+disc);
+    }
+}
