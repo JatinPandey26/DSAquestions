@@ -1,0 +1,59 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+            Scanner sn = new Scanner(System.in);
+       int n = sn.nextInt();
+       int [] arr = new int[n];
+       for(int i = 0 ; i < n ; i++){
+           arr[i] = sn.nextInt();
+       }
+       
+        //Longest Inccreasing Subsequence
+       
+       int[] dp = new int[n];
+       
+       //if only 1 element is there
+       if(arr.length ==  1 ){
+          System.out.println(1);
+          return ;
+       }
+       
+       
+       dp[0] = 1;
+       for(int i = 1 ; i < n ; i++){
+           
+           int max = 0;
+           for(int j = 0 ; j < i ; j++ ){
+             if(arr[i] >= arr[j]) { max = Math.max(dp[j],max);}
+           }
+           
+           dp[i] = max + 1;
+           
+           
+       }
+       
+       
+       //Longest Decreasing Subsequence
+       
+       int []dp2 = new int[n];
+       dp2[n-1] = 1;
+       for(int i = n-2 ; i>=0 ; i--){
+            int max = 0;
+           for(int j = n-1 ; j>i ;j-- ){
+             if(arr[i] >= arr[j]) { max = Math.max(dp2[j],max);}
+           }
+           dp2[i] = max + 1;
+           
+       }
+       int ans = 0;
+       for(int i = 0 ; i <  n ; i++){
+           ans = Math.max(ans,dp[i] + dp2[i] );
+       }
+       System.out.println(ans-1);
+       
+    }
+
+}
