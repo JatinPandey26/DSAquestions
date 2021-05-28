@@ -1,0 +1,29 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        // write your code here
+          Scanner sn = new Scanner(System.in);
+        int days = sn.nextInt();
+        int[] stockrates = new int[days ];
+        
+        for(int i = 0 ; i < stockrates.length ; i++){
+            stockrates[i] = sn.nextInt();
+        }
+        
+        int bsp = -stockrates[0];
+        int ssp = 0;
+        int csp = 0;
+        
+        for(int i =1; i< days; i++){
+            bsp = Math.max(bsp , csp - stockrates[i]  );
+            csp = Math.max(csp,ssp);
+            ssp = Math.max(stockrates[i] + bsp,ssp);
+            
+        }
+        System.out.println(ssp);
+    }
+
+}
