@@ -1,0 +1,34 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        // write your code here
+          Scanner sn = new Scanner(System.in);
+        int n = sn.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0 ; i< n ; i++){
+            arr[i] = sn.nextInt();
+        }
+        int k = sn.nextInt();
+        int [][] dp = new int[k+1][n];
+        
+        for(int i = 0 ; i < k+1; i++){
+            for(int j = 0 ; j < n ; j++){
+                if(i == 0 || j == 0){
+                    dp[i][j] = 0;
+                    continue;
+                }
+                int max_one_less_trans = 0;
+                
+                for(int d = 0 ; d < j ; d++ ){
+                  max_one_less_trans = Math.max(max_one_less_trans, arr[j] - arr[d] + dp[i-1][d] );
+                }
+                dp[i][j] = Math.max(max_one_less_trans,dp[i][j-1]);
+            }
+        }
+        System.out.println(dp[k][n-1]);
+    }
+
+}
