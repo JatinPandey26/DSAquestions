@@ -1,0 +1,30 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner sn = new Scanner(System.in);
+        int n = sn.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0 ; i  < arr.length ; i++){
+            arr[i] = sn.nextInt();
+        }
+        int tp = 0;
+        int bp = arr[0];
+        int sp = arr[0];
+        for(int i = 1; i < n ; i++){
+            if(arr[i] > arr[i-1] ){
+               sp = arr[i];
+            }
+            else{
+              tp += sp - bp;
+              bp = arr[i];
+              sp = arr[i];
+            }
+        }
+        tp += sp- bp;
+        System.out.println(tp);
+    }
+
+}
