@@ -1,0 +1,52 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    
+    public static class Envelope implements Comparable<Envelope> {
+        int w , h;
+         Envelope(int w , int h ){
+            this.w = w;
+            this.h = h;
+        }
+        
+        public int compareTo(Envelope o ){
+            return this.w - o.w; 
+        }
+    }
+    
+
+    public static void main(String[] args) throws Exception {
+        Scanner sn = new Scanner(System.in);
+        int n = Integer.parseInt(sn.nextLine());
+        
+        Envelope[] env = new Envelope[n];
+        for(int i = 0 ; i < n ; i++){
+            String str = sn.nextLine();
+            String[] parts = str.split(" ");
+            int w = Integer.parseInt(parts[0]);
+            int h = Integer.parseInt(parts[1]);
+            env[i] = new Envelope(w,h);
+            
+        }
+        
+        Arrays.sort(env);
+        
+        int[] dp = new int[n];
+      int ans = 0;
+      for(int i = 0 ; i < n ; i++){
+          int max = 0 ;
+          for(int j = 0 ; j < i ; j++){
+              if(env[j].h  < env[i].h && env[j].w < env[i].w ){
+                 max = Math.max(dp[j] , max); 
+              }
+          }
+          dp[i] = max+1;
+          ans = Math.max(ans,dp[i]);
+      }
+       System.out.println(ans);
+        
+        
+    }
+
+}
