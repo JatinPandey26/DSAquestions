@@ -1,0 +1,57 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static class Bridge implements Comparable<Bridge> {
+        int nb , sb ;
+        Bridge(int nb , int sb){
+            this.nb = nb;
+            this.sb = sb;
+        }
+        
+        public int compareTo(Bridge o){
+            if(this.nb != o.nb ){
+                return this.nb - o.nb;
+                
+            }
+            else{
+                return this.sb - o.sb;
+            }
+        }
+        
+        
+    }
+
+    public static void main(String[] args) throws Exception {
+        Scanner sn = new Scanner(System.in);
+        int n = Integer.parseInt(sn.nextLine());
+        Bridge[] bdgs = new Bridge[n];
+      for(int i = 0 ; i < n ; i++) { 
+          String str = sn.nextLine();
+          String[] banks = str.split(" ");
+          int nb = Integer.parseInt(banks[0]);
+          int sb = Integer.parseInt(banks[1]);
+          
+          bdgs[i] = new Bridge(nb,sb);
+          
+          
+      }
+      
+      Arrays.sort(bdgs);
+      int[] dp = new int[n];
+      int ans = 0;
+      for(int i = 0 ; i < n ; i++){
+          int max = 0 ;
+          for(int j = 0 ; j < i ; j++){
+              if(bdgs[j].sb<= bdgs[i].sb ){
+                 max = Math.max(dp[j] , max); 
+              }
+          }
+          dp[i] = max+1;
+          ans = Math.max(ans,dp[i]);
+      }
+       System.out.println(ans);
+        
+    }
+
+}
