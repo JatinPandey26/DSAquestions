@@ -1,0 +1,86 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static int solution(String str) {
+    // write your code here
+
+    HashMap<Character, Integer> hmap = new HashMap<>();
+
+    //pre occurence
+    int[] pre = new int[str.length()];
+    for (int i = 0 ; i < str.length() ; i++ ) {
+      char ch = str.charAt(i);
+      if (hmap.containsKey(ch) != true ) {
+        pre[i] = -1;
+
+      }
+      else {
+        pre[i] = hmap.get(ch);
+      }
+      hmap.put(ch, i);
+    }
+    hmap.clear();
+    //next occurence
+    int[] next = new int[str.length()];
+    for (int i = str.length() - 1 ; i >= 0 ; i--) {
+      char ch = str.charAt(i);
+      if (hmap.containsKey(ch) != true ) {
+        next[i] = str.length() ;
+
+      }
+      else {
+        next[i] = hmap.get(ch);
+      }
+      hmap.put(ch, i);
+    }
+
+    int[][] dp = new int[str.length()][str.length()];
+
+    for (int g = 0 ; g < dp.length ; g++) {  
+      for (int i = 0, j = g ; j < dp.length ;i++, j++ ) {
+        if (g == 0) {
+          dp[i][j] = 1;
+
+        }
+        else if (g == 1) {
+          dp[i][j] = 2;
+
+        }
+        else {
+          char chi = str.charAt(i);
+          char chj = str.charAt(j);
+          if (chi == chj) {
+            if (next[i] > pre[j]) {
+              // iska matlab beech mai koi same char nhi hai
+              dp[i][j] =  2 * dp[i + 1][j - 1] + 2;
+            }
+            else if (next[i] == pre[j]) {
+              // iska matlab beech mai 1 same char hai
+              dp[i][j] =  2 * dp[i + 1][j - 1] + 1;
+            }
+            else {
+              // iska mtlb beech mai 2 same char hai
+              dp[i][j] =  2 * dp[i + 1][j - 1] - dp[next[i] + 1 ][pre[j] - 1 ] ;
+            }
+
+          }
+          else {
+            dp[i][j] = dp[i + 1][j] + dp[i][j - 1] - dp[i + 1][j - 1];
+          }
+        }
+      }
+    }
+
+
+
+    return dp[0][dp.length - 1];
+  }
+  public static void main(String[] args) {
+    Scanner scn = new Scanner(System.in);
+    String str = scn.next();
+    System.out.println(solution(str));
+  }
+
+}
