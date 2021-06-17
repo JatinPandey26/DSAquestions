@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+public class Main{
+  
+
+public static void main(String[] args) throws Exception {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String exp = br.readLine();
+
+    Stack<Integer> val = new Stack<>();
+    Stack<String> inf  = new  Stack<>();
+    Stack<String> post = new Stack<>();
+    
+    for(int i = exp.length() - 1 ; i >= 0 ; i-- ){
+        char ch = exp.charAt(i);
+        if(Character.isDigit(ch) ){
+            val.push(ch - '0');
+            inf.push(ch+"");
+            post.push(ch+"");
+        }
+        else{
+            // evaluating
+            
+            int v1 = val.pop();
+            int v2 = val.pop();
+            val.push(solve(v1,v2,ch) );
+          
+          
+        //   infix
+        
+        String infv1 = inf.pop();
+        String infv2 = inf.pop();
+        String inf_tbp = '('+infv1+ch+infv2+')';
+        inf.push(inf_tbp);
+        
+        // prefix
+        
+        String postv1 = post.pop();
+        String postv2 = post.pop();
+        String post_tbp = postv1+postv2+ch;
+        post.push(post_tbp);
+        }     
+    }
+    System.out.println(val.pop());
+    System.out.println(inf.pop());
+    System.out.println(post.pop());
+    
+    
+ }
+ public static int solve(int v1 , int v2 , char ch){
+     if(ch == '+'){return v1  +  v2 ;}
+    else if(ch == '-'){return v1 -  v2 ;}
+    else if(ch == '*'){return v1 *  v2 ;}
+    else if(ch == '/'){return v1 /  v2 ;}
+    return 0 ; 
+ }
+}
