@@ -1,0 +1,22 @@
+
+    public void reverseDI() {
+      // write your code here
+      Node temp = new Node();
+      
+      for(int i = 0 ; i < size / 2 ; i++){
+          Node end = head;
+          if(i == 0){
+              temp = head;
+          }else{
+              temp = temp.next;
+          }
+          for(int j = 0 ; j < size-1-i; j++){
+              end = end.next;
+          }
+          int val = end.data;
+          end.data = temp.data;
+          temp.data = val;
+          
+      }
+      
+    }
