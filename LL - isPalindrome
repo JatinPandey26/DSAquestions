@@ -1,0 +1,22 @@
+ private boolean IspalindromeHelper(Node right,int floor){
+        if(right == null){
+            return true;
+        }
+       boolean res =  IspalindromeHelper(right.next,floor+1);
+       
+       if(res == true && left.data == right.data){
+           left = left.next;
+           return true;
+       }
+       else{
+           return false;
+       }
+        
+    }
+    Node left;
+    public boolean IsPalindrome() {
+      // write your code here
+      left = head;
+     return  IspalindromeHelper(head,0);
+      
+    }
