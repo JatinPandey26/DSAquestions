@@ -1,0 +1,13 @@
+ public int kthFromLast(int k){
+      // write your code here
+      Node fast = head;
+      Node slow = head;
+      while(k-- > 0){
+          fast = fast.next;
+      }
+      while(fast != tail){
+          slow = slow.next;
+          fast = fast.next;
+      }
+      return slow.data;
+    }
