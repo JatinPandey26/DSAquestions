@@ -1,0 +1,23 @@
+private void reversePRHelper(Node right,int floor) {
+      // write your code here
+      if (right == null) {
+        return ;
+      }
+      reversePRHelper(right.next,floor+1);
+      if (floor > size/2) {
+
+
+        int temp = left.data;
+        left.data = right.data;
+        right.data = temp;
+        left = left.next;
+      }
+      
+    }
+    Node left;
+    public void reversePR() {
+      // write your code here
+      left = head;
+      reversePRHelper(head, 0);
+
+    }
