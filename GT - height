@@ -1,0 +1,12 @@
+
+// height is in terms of edges so initialize with -1 else when in terms of nodes initialize with 0
+
+  public static int height(Node node) {
+    // write your code here
+    int h = -1;
+    for(Node child : node.children){
+        int ch = height(child);
+        h = Math.max(h,ch);
+    }
+    return h+1;
+  }
