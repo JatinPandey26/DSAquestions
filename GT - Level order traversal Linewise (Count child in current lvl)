@@ -1,0 +1,24 @@
+    Queue<Node> que = new ArrayDeque<>();
+    que.add(node);
+   
+
+    while (que.size() > 0 ) {
+     
+    int cc = que.size();
+    
+    for(int i = 0 ; i < cc ; i++){
+         Node temp = que.remove();
+         
+         System.out.print(temp.data + " ");
+         
+         for(Node child : temp.children){
+             que.add(child);
+         }
+         
+    }
+     
+     System.out.println();
+
+
+
+    }
