@@ -1,0 +1,26 @@
+public static void levelOrderLinewise(Node node) {
+    // write your code here
+    Queue<Node> que = new ArrayDeque<>();
+    Queue<Node> cque = new ArrayDeque<>();
+    que.add(node);
+
+    
+    while (que.size() > 0  ) {
+      Node temp = que.remove();
+      
+      System.out.print(temp.data + " ");
+      
+      for(Node child : temp.children){
+          cque.add(child);
+      }
+      
+      if(que.size() == 0){
+          System.out.println();
+          while(cque.size() > 0){
+              que.add(cque.remove());
+          }
+      }
+
+    }
+
+  }
