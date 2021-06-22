@@ -1,0 +1,15 @@
+ public static boolean find(Node node, int data) {
+    // write your code here
+    if(node.data == data){
+        return true;
+    }
+    boolean mila = false;
+    
+    for(Node child : node.children){
+      if(mila == false){
+       mila = find(child,data);}
+    }
+    
+    return mila;
+    
+  }
