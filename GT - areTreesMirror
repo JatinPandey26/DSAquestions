@@ -1,0 +1,23 @@
+ public static boolean areMirror(Node n1, Node n2) {
+    // write your code here
+    
+    if(n1.children.size() != n2.children.size() ){
+        return false;
+    }
+    
+    for(int i = 0 ; i <n1.children.size();i++ ){
+        int j = n1.children.size() - 1 - i;
+        
+        Node cn1 = n1.children.get(i);
+        Node cn2 = n2.children.get(j);
+        
+        boolean check = areMirror(cn1,cn2);
+        
+        if(check == false){
+            return false;
+        }
+        
+    }
+    return true;
+    
+  }
