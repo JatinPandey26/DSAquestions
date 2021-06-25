@@ -1,0 +1,15 @@
+  static Node mnode;
+  static int msum;
+  public static int  NodeWithMaxSS(Node node){
+      int sum = 0;
+      for(Node child : node.children){
+          int s = NodeWithMaxSS(child);
+          sum += s;
+      }
+      sum += node.data;
+      if(sum > msum){
+          msum = sum;
+          mnode = node;
+      }
+      return sum;
+  }
