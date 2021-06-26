@@ -1,0 +1,24 @@
+public static void levelOrder(Node node) {
+    // write your code here
+    Queue<Node> que = new ArrayDeque<>();
+
+    que.add(node);
+
+    while (que.size() > 0 ) {
+
+      int n = que.size();
+
+      for (int i = 0 ; i < n ; i++)  {
+        Node top = que.peek();
+        System.out.print(top.data + " ");
+        if(top.left!= null )  {que.add(top.left);}
+        if(top.right != null) {que.add(top.right);}
+
+        que.remove();
+      }
+      System.out.println();
+
+    }
+
+
+  }
