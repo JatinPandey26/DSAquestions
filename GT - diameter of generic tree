@@ -1,0 +1,27 @@
+  
+  static int dia;
+  public static int calculateDia(Node node){
+      int dch = -1;
+      int sdch = -1;
+      
+      for(Node child: node.children){
+          int cht = calculateDia(child);
+          
+          if(dch < cht){
+              sdch = dch;
+              dch = cht;
+          }
+          else if(sdch < cht){
+              sdch = cht;
+          }
+          
+         
+          
+      }
+   
+          dia = dch + sdch + 2;
+          
+  
+          
+          return dch+1;
+  }
