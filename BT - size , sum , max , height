@@ -1,0 +1,59 @@
+  public static int size(Node node) {
+    // write your code here
+    if(node == null){
+        return 0;
+    }
+    
+    int sLeft = size(node.left);
+    int sRight = size(node.right);
+    int size = sLeft + sRight + 1;
+    return size;
+    
+  }
+
+  public static int sum(Node node) {
+    // write your code here
+    if(node == null){
+        return 0;
+    }
+    
+    int lSum = sum(node.left);
+    int rSum = sum(node.right);
+    
+    int sum = lSum + rSum + node.data;
+    
+    
+    return sum;
+    
+  }
+
+  public static int max(Node node) {
+    // write your code here
+    
+    if(node == null){
+        return Integer.MIN_VALUE;
+    }
+    
+    int lMax = max(node.left);
+    int rMax = max(node.right);
+    
+    int max = Math.max(node.data , Math.max(lMax,rMax));
+    
+    return max;
+    
+  }
+
+  public static int height(Node node) {
+    // write your code here
+    if(node == null){
+        return -1;
+    }
+    
+    int lHt = height(node.left);
+    int rHt = height(node.right);
+    
+    int ht = Math.max(lHt , rHt) + 1;
+    
+    return ht;
+    
+  }
