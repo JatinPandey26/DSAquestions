@@ -1,0 +1,37 @@
+  public static void printKLevelsDown(Node node, int k){
+    //   RECURSIVE APPROACH
+      if(k < 0 || node == null){
+          return ;
+      }
+      
+      if(k == 0){
+          System.out.println(node.data);
+      }
+      printKLevelsDown(node.left,k-1);
+      printKLevelsDown(node.right,k-1);
+      
+      
+      
+    // ITERATIVE APPROACH
+    // Queue<Pair> que = new ArrayDeque<>();
+    // que.add(new Pair(node,0));
+    
+    // while(que.size() > 0 ){
+    //     Pair top = que.remove();
+        
+    //     if(top.state == k){
+    //         System.out.println(top.node.data);
+    //     }
+    //     else{
+    //         if(top.node.left != null){
+    //             que.add(new Pair(top.node.left,top.state+1));
+    //         }
+    //         if(top.node.right != null){
+    //             que.add(new Pair(top.node.right,top.state+1));
+    //         }
+    //     }
+        
+        
+    // }
+    
+  }
