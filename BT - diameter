@@ -1,0 +1,64 @@
+
+  public static int diameter1(Node node) {
+    // write your code here
+    if(node == null){
+        return 0;
+    }
+    
+    
+    int lht = height(node.left);
+    int rht = height(node.right);
+    int dlr = lht + rht + 2;
+    
+    int dl = diameter1(node.left);
+    int dr = diameter1(node.right);
+    
+    return Math.max(dlr ,Math.max(dl,dr));
+    
+    
+  }
+  
+
+  
+  
+  ///////////////////////////////////////////////
+ ///////////////OPTIMAL SOLUTION/////////////////
+ ////////////////////////////////////////////////
+  
+  
+    public static class DiaPair{
+      int ht;
+      int dia;
+      
+      DiaPair(int ht , int dia){
+          this.ht = ht;
+          this.dia = dia;
+      }
+      
+  }
+  
+  
+  public static DiaPair diameter2(Node node){
+      
+      if(node == null){
+        DiaPair bp = new DiaPair(-1,0);
+        return bp;
+      }
+      
+      DiaPair lp = diameter2(node.left);
+      DiaPair rp = diameter2(node.right);
+      
+      int dlr = lp.ht + rp.ht + 2;
+      int dl = lp.dia;
+      int dr = rp.dia;
+      
+      int mdia = Math.max(dlr,Math.max(dl,dr));
+      
+      
+      
+      DiaPair mp = new DiaPair(Math.max(lp.ht,rp.ht) + 1 , mdia  );
+      
+      return mp;
+      
+      
+  }
