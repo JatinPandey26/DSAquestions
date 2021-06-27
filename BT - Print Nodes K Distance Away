@@ -1,0 +1,54 @@
+    static ArrayList<Node> path = new ArrayList<>();
+  public static boolean find(Node node, int data) {
+    // write your code here
+    if (node == null) {
+      return false;
+    }
+    if (node.data == data) {
+      path.add(node);
+      return true;
+    }
+
+   boolean lc = find(node.left, data);
+    if (lc) {
+      path.add(node);
+      return true;
+    }
+
+   boolean rc = find(node.right, data);
+    if (rc) {
+      path.add(node);
+      return true;
+    }
+
+    return false;
+
+  }
+
+
+  public static void printKNodesFar(Node node, int data, int k) {
+    // write your code here
+    
+   find(node, data);
+    
+    for(int i = 0 ; i < path.size() && i <= k ; i++ ){
+        printKLevelsDown(path.get(i) , k-i , i==0? null : path.get(i-1));
+    }
+    
+    
+  }
+  
+  
+  
+    public static void printKLevelsDown(Node node, int k,Node blocker){
+    //   RECURSIVE APPROACH
+      if(k < 0 || node == null || node == blocker){
+          return ;
+      }
+      
+      if(k == 0){
+          System.out.println(node.data);
+      }
+      printKLevelsDown(node.left,k-1,blocker);
+      printKLevelsDown(node.right,k-1,blocker);
+    }
