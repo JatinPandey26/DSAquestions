@@ -1,0 +1,31 @@
+  public static class BST{
+      boolean isBST;
+      int max;
+      int min;
+      
+      BST(boolean isBST, int max , int min){
+          this.isBST = isBST;
+          this.max = max;
+          this.min = min;
+      }
+  } 
+  
+  public static BST checkBST(Node node){
+      
+      if(node == null){
+          BST bp = new BST(true,Integer.MIN_VALUE,Integer.MAX_VALUE);
+          return bp;
+      }
+      
+      BST lp = checkBST(node.left);
+      BST rp = checkBST(node.right);
+      
+      boolean res = lp.isBST && rp.isBST && node.data >= lp.max && node.data <= rp.min;
+      int max = Math.max(node.data ,Math.max(lp.max,rp.max));
+      int min = Math.min(node.data ,Math.min(lp.min,rp.min));
+      BST mp = new BST(res,max,min);
+      
+      return mp;
+      
+  }
+ 
