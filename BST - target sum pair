@@ -1,0 +1,13 @@
+  public static void targetSumPair(Node node, Node root, int data ) {
+
+    if(node == null){
+        return;
+    }
+
+    targetSumPair(node.left, root, data);
+    if (find(root, data - node.data) && (node.data != data-node.data) &&( node.data < data - node.data) ) {
+      System.out.println(node.data + " " + (data - node.data));
+    }
+    targetSumPair(node.right, root, data);
+
+  }
