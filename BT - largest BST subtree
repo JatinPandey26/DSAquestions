@@ -1,0 +1,40 @@
+  public static BST checkBST(Node node){
+      
+      if(node == null){
+          BST bp = new BST();
+          bp.isBST = true;
+          bp.max = Integer.MIN_VALUE;
+          bp.min = Integer.MAX_VALUE;
+          bp.lBSTnode = null;
+          bp.lBSTsize = 0;
+          return bp;
+      }
+      
+      BST lp = checkBST(node.left);
+      BST rp = checkBST(node.right);
+      
+      boolean res = lp.isBST && rp.isBST && node.data >= lp.max && node.data <= rp.min;
+      int max = Math.max(node.data ,Math.max(lp.max,rp.max));
+      int min = Math.min(node.data ,Math.min(lp.min,rp.min));
+      BST mp = new BST();
+          mp.isBST = res;
+          mp.max = max;
+          mp.min = min;
+          
+         
+      if(mp.isBST){
+          mp.lBSTnode = node;
+          mp.lBSTsize = lp.lBSTsize + rp.lBSTsize + 1;
+      }else if (lp.lBSTsize > rp.lBSTsize ){
+          mp.lBSTnode = lp.lBSTnode;
+          mp.lBSTsize = lp.lBSTsize;
+
+      }
+      else if(lp.lBSTsize < rp.lBSTsize){
+         mp.lBSTnode = rp.lBSTnode;
+          mp.lBSTsize = rp.lBSTsize; 
+      }
+      
+      return mp;
+      
+  }
