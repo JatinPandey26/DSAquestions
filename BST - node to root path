@@ -1,0 +1,20 @@
+  public static ArrayList<Integer> nodeTOroot(Node node , int data){
+      
+      if(node == null){
+          return new ArrayList<>();
+      }
+      
+      ArrayList<Integer> path = new ArrayList<>();
+      if(node.data == data){
+         path.add(node.data); 
+      }
+      else if(node.data > data){
+        path = nodeTOroot(node.left,data); 
+        path.add(node.data);
+      }
+      else{
+         path = nodeTOroot(node.right,data);
+         path.add(node.data);
+      }
+      return path;
+  }
