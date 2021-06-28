@@ -1,0 +1,27 @@
+  public static class Balance{
+      boolean isBalance;
+      int ht;
+      
+  }
+  
+  public static Balance checkBalance(Node node){
+      
+      if(node == null){
+          Balance bp = new Balance();
+         bp.isBalance = true;
+         bp.ht = 0 ;  
+         return bp;
+      }
+      
+      Balance lp = checkBalance(node.left);
+      Balance rp = checkBalance(node.right);
+      
+      boolean ans = lp.isBalance && rp.isBalance && Math.abs(lp.ht - rp.ht) <= 1;
+      
+      Balance mp = new Balance();
+      mp.isBalance = ans;
+      mp.ht = Math.max(lp.ht,rp.ht) + 1;
+      
+      return mp;
+      
+  }
