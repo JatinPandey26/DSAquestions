@@ -1,0 +1,43 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static void main(String[] args) throws Exception {
+    // write your code here
+
+    Scanner sn = new Scanner(System.in);
+    int n1 = sn.nextInt();
+
+    HashMap<Integer, Integer> hm1 = new HashMap<>();
+   
+
+    for (int i = 0 ; i < n1 ; i++ ) {
+      int num = sn.nextInt();
+
+      if (hm1.containsKey(num)) {
+        hm1.put(num, hm1.get(num) + 1 );
+      }
+      else {
+        hm1.put(num, 1);
+      }
+
+    }
+ 
+    int n2 = sn.nextInt();
+    
+    for(int i = 0 ; i < n2 ; i++){
+        int num = sn.nextInt();
+        
+        if(hm1.containsKey(num)){
+            hm1.remove(num);
+            System.out.println(num);
+        }
+        
+    }
+
+    
+   
+  }
+
+}
