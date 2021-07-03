@@ -1,0 +1,19 @@
+  public static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] visited ) {
+
+    if (src == dest) {
+      return true;
+    }
+    visited[src] = true;
+    for (Edge edge : graph[src]) {
+      if (visited[edge.nbr] == false )
+      {
+        boolean check = hasPath(graph, edge.nbr, dest, visited);
+        if (check == true) {
+          return true;
+        }
+
+      }
+    }
+    return false;
+
+  }
