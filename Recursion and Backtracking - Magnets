@@ -1,0 +1,228 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static boolean solution(char[][] arr, int[] top, int[] left, int[] right, int[] bottom, char[][] ans, int row, int col) {
+     
+     if(col == arr[0].length){
+         row += 1;
+         col = 0;
+     }
+     
+     if(row == arr.length ){
+         if(isValid(ans,top,left,bottom,right) == true){
+             return true;
+         }
+         return false;
+     }
+     
+    if (arr[row][col] == 'L' ) {
+
+      if (isSafe(ans, top, left, bottom, right, row, col, '+' ) && isSafe(ans, top, left, bottom, right, row, col + 1, '-' ) ) {
+        ans[row][col] = '+';
+        ans[row][col + 1] = '-';
+        if (solution(arr, top, left, right, bottom, ans, row, col + 2) == true) {
+          return true;
+        }
+        ans[row][col] = 'X';
+        ans[row][col + 1] = 'X';
+      }
+
+      if (isSafe(ans, top, left, bottom, right, row, col, '-' ) && isSafe(ans, top, left, bottom, right, row, col + 1, '+' ) ) {
+        ans[row][col] = '-';
+        ans[row][col + 1] = '+';
+        if (solution(arr, top, left, right, bottom, ans, row, col + 2) == true ) {
+          return true;
+        }
+        ans[row][col] = 'X';
+        ans[row][col + 1] = 'X';
+      }
+
+    }
+    else if (arr[row][col] == 'T' ) {
+      if (isSafe(ans, top, left, bottom, right, row, col, '+' ) && isSafe(ans, top, left, bottom, right, row + 1, col, '-' ) ) {
+        ans[row][col] = '+';
+        ans[row + 1][col] = '-';
+        if (solution(arr, top, left, right, bottom, ans, row, col + 1) == true) {
+          return true;
+        }
+        ans[row][col] = 'X';
+        ans[row + 1][col] = 'X';
+      }
+
+      if (isSafe(ans, top, left, bottom, right, row, col, '-' ) && isSafe(ans, top, left, bottom, right, row + 1, col, '+' ) ) {
+        ans[row][col] = '-';
+        ans[row + 1][col] = '+';
+        if (solution(arr, top, left, right, bottom, ans, row, col + 1) == true) {
+          return true;
+        }
+        ans[row][col] = 'X';
+        ans[row + 1][col] = 'X';
+      }
+    }
+
+    if (solution(arr, top, left, right, bottom, ans, row, col + 1) == true)
+    {
+      return true;
+    }
+
+    return false;
+
+  }
+
+  public static int rowCounter(char[][] ans, char sign, int row  ) {
+    int counter = 0;
+
+    for (int i = 0 ; i < ans[0].length ; i++ ) {
+      if (ans[row][i] == sign) {
+        counter++;
+      }
+    }
+    return counter;
+  }
+
+  public static int  colCounter(char[][] ans, char sign, int col  ) {
+    int counter = 0;
+
+    for (int i = 0 ; i < ans.length ; i++ ) {
+      if (ans[i][col] == sign) {
+        counter++;
+      }
+    }
+    return counter;
+  }
+
+  public static boolean isValid(char[][] ans, int[] top, int[] left,  int[] bottom, int[] right) {
+
+    for (int i = 0 ; i < left.length ; i++)
+    { int rp =  rowCounter(ans, '+', i);
+
+
+      if (left[i] != -1 && rp !=  left[i]) {
+        return false;
+      }
+    }
+
+    for (int i = 0 ; i < top.length ; i++)
+    { int cp =  colCounter(ans, '+', i );
+
+      if (top[i] != -1 && cp != top[i]) {
+        return false;
+      }
+    }
+
+    for (int i = 0 ; i < right.length ; i++)
+    { int rn =  rowCounter(ans, '-', i);
+
+
+      if (right[i] != -1 && rn != right[i]) {
+        return false;
+      }
+    }
+    for (int i = 0 ; i < bottom.length ; i++)
+    { int cn =  colCounter(ans, '-', i );
+      if (bottom[i] != -1 && cn != bottom[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  public static boolean isSafe(char[][] ans, int[] top, int[] left,  int[] bottom, int[] right, int row, int col, char sign ) {
+
+    if ( (col - 1 >= 0 && ans[row][col - 1] == sign) || (row - 1 >= 0 && ans[row - 1][col] == sign) || (col + 1 < ans[0].length && ans[row][col + 1] == sign )) {
+      return false;
+    }
+
+
+    if (sign == '+') {
+      int rp =  rowCounter(ans, '+', row);
+      int cp =  colCounter(ans, '+', col );
+
+      if (left[row] != -1 && rp > left[row]) {
+        return false;
+      }
+
+      if (top[col] != -1 && cp > top[col]) {
+        return false;
+      }
+
+    }
+    else {
+      int rn =  rowCounter(ans, '-', row);
+      int cn =  colCounter(ans, '-', col );
+
+      if (right[row] != -1 && rn > right[row]) {
+        return false;
+      }
+
+      if (bottom[col] != -1 && cn > bottom[col]) {
+        return false;
+      }
+    }
+
+    return true;
+
+
+
+
+  }
+
+  public static void print(char[][] arr) {
+    for (int i = 0; i < arr.length; i++) {
+      for (int j = 0; j < arr[0].length; j++) {
+        System.out.print(arr[i][j] + " ");
+      }
+      System.out.println();
+    }
+  }
+
+  public static void main(String[] args) {
+    Scanner scn = new Scanner(System.in);
+    int m = scn.nextInt();
+    int n = scn.nextInt();
+    char[][] arr = new char[m][n];
+    for (int i = 0; i < arr.length; i++) {
+      String str = scn.next();
+      arr[i] = str.toCharArray();
+    }
+    int[] top = new int[n];
+    for (int i = 0; i < n; i++) {
+      top[i] = scn.nextInt();
+    }
+    int[] left = new int[m];
+    for (int i = 0; i < m; i++) {
+      left[i] = scn.nextInt();
+    }
+    int[] right = new int[m];
+    for (int i = 0; i < m; i++) {
+      right[i] = scn.nextInt();
+    }
+    int[] bottom = new int[n];
+    for (int i = 0; i < n; i++) {
+      bottom[i] = scn.nextInt();
+    }
+    
+    char[][] ans = new char[m][n];
+    
+    for(int i = 0 ; i < m ; i++){
+        Arrays.fill(ans[i],'X');
+        
+    }
+    
+    if(solution(arr, top, left, right, bottom, ans,0,0) == true){
+        print(ans);
+        return;
+        
+    }
+        System.out.println("No Solution");
+    
+    
+    
+    //write your code here
+  }
+
+
+}
