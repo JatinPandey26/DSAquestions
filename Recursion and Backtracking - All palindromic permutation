@@ -1,0 +1,73 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+	public static void generatepw(int cs, int ts, HashMap<Character, Integer> fmap, Character oddc, String asf) {
+	
+	
+	if(cs == ts){
+	    String rev = "";
+	    
+	    for(int i = asf.length() - 1 ; i >= 0; i-- ){
+	        rev += asf.charAt(i) ; 
+	    }
+	    
+	    String ans = "";
+	    if(oddc == null){
+	        ans = asf  + rev;;
+	        
+	    }
+	    else{
+	        ans = asf + oddc + rev;;
+	    }
+	    System.out.println(ans);
+	    return;
+	}	
+		
+	for(Character ch : fmap.keySet()){	
+	    if(fmap.get(ch) == 0 ){
+	        continue;
+	    }
+	    fmap.put(ch , fmap.get(ch) - 1);
+	    generatepw(cs+1 , ts , fmap , oddc , asf + ch);
+	     fmap.put(ch , fmap.get(ch) + 1);
+	    
+	}
+		
+	}
+
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		String str = scn.next();
+		HashMap<Character, Integer> fmap = new HashMap<>();
+		for (int i = 0; i < str.length(); i++) {
+			char ch = str.charAt(i);
+			fmap.put(ch, fmap.getOrDefault(ch, 0) + 1);
+		}
+		
+		//write your code here
+			Character oddc = null;
+		int foddc = 0;
+		int len = 0 ;
+		
+		for(Character ch : fmap.keySet()){
+		    int freq = fmap.get(ch);
+		    
+		    if(freq%2 == 1){
+		       oddc = ch;
+		       foddc += 1;
+		    }
+		    
+		     fmap.put(ch,freq/2);
+		        
+		       len += freq/2;
+		}
+		if(foddc > 1){
+		    System.out.println(-1);
+		    return;
+		}
+		generatepw(0,len,fmap,oddc,"");
+	}
+	
+}
