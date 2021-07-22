@@ -1,0 +1,57 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+
+
+  public static void main(String[] args) throws Exception {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String str = br.readLine();
+    int k = Integer.parseInt(br.readLine());
+
+    HashSet<Character> unique = new HashSet<>();
+    String ustr = "";
+    for (char ch : str.toCharArray()) {
+      if (unique.contains(ch) == false) {
+        unique.add(ch);
+        ustr += ch;
+      }
+    }
+
+    permutations(0, ustr, 0, k, new Character[k],-1) ;
+  }
+
+  public static void permutations(int idx,  String ustr, int cs, int ts, Character [] spots,int li) {
+
+
+    if (idx == ustr.length() ) {
+      if (cs == ts) {
+        for (int i = 0 ; i < spots.length ; i++ ) {
+          if (spots[i] != null) {
+            System.out.print(spots[i]);
+          }
+
+        }
+        System.out.println();
+        
+      }
+      return;
+    }
+
+
+    char ch = ustr.charAt(idx);
+    for (int i = li+1 ; i < spots.length ; i++ ) {
+      if (spots[i] == null) {
+        spots[i] = ch;
+        permutations(idx + 1,  ustr, cs + 1, ts, spots,i);
+        spots[i] = null;
+      }
+    }
+
+    permutations(idx + 1,  ustr, cs, ts, spots,li);
+
+
+  }
+
+}
