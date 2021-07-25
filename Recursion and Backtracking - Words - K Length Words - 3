@@ -1,0 +1,62 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+
+  public static void main(String[] args) throws Exception {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String str = br.readLine();
+    int k = Integer.parseInt(br.readLine());
+
+
+    HashMap<Character, Integer> lidx = new HashMap<>();
+ 
+    for (char ch : str.toCharArray()) {
+      if (lidx.containsKey(ch) == false) {
+        lidx.put(ch, -1);
+      }
+    }
+
+    solution(0, str, 0, k,  new Character[k], lidx);
+  }
+
+
+  public static void solution(int idx, String  ustr, int ci, int k,   Character[] spots, HashMap<Character, Integer> lidx ) {
+    if (idx == ustr.length()) {
+      if (ci == k) {
+        for (char ch : spots) {
+          System.out.print(ch);
+        }
+        System.out.println();
+
+      }
+
+      return;
+    }
+
+    char ch =  ustr.charAt(idx);
+    int li = lidx.get(ch);
+
+    for (int i = li + 1 ; i < spots.length ; i++) {
+      if (spots[i] == null) {
+
+        spots[i] = ch;
+
+        lidx.put(ch, i);
+        solution(idx+1, ustr, ci + 1, k,  spots, lidx);
+        spots[i] = null;
+
+        lidx.put(ch, li);
+      }
+
+    }
+
+    if (li == -1 )
+    {
+      solution(idx + 1, ustr, ci, k, spots, lidx);
+    }
+
+  }
+
+}
