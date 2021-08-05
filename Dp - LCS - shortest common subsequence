@@ -1,0 +1,89 @@
+class Solution
+{
+    //Function to find length of shortest common supersequence of two strings.
+    public static int shortestCommonSupersequence(String X,String Y,int m,int n)
+    {
+        // return (m + n) - lcs(m,n,X,Y); 
+        
+        //  TO print Shortest Common Supersequence 
+        
+        HashSet<Character> set  = lcs(m,n,X,Y);
+        
+        String fp = "";          /* first_part */
+        
+    int size = set.size();
+         
+    for(int i = m-1 ; i>= 0; i-- ){
+        char ch = X.charAt(i);
+       if( set.contains( ch ) ){
+          
+            set.remove(ch);
+       }
+       else{
+           fp =  ch + fp;
+       }
+    }
+        
+        System.out.println(fp+Y);
+        
+       return (m + n) - size ; 
+        
+    }
+    
+    static int[][] t ;
+    
+    static HashSet<Character> lcs(int x, int y, String s1, String s2)
+    {
+          t = new int[x+1][y+1];
+        
+        lcsHelperTtoD(x,y,s1,s2);
+        
+        HashSet<Character> set = new HashSet<>();
+        
+        int i = x ;
+        int j = y;
+       
+        while(i > 0 && j > 0){
+            if(s1.charAt(i-1) == s2.charAt(j-1) ){
+             set.add(s1.charAt(i-1)); 
+             i--; 
+             j--;
+        }
+        else{
+            if(t[i-1][j] > t[i][j-1] ){
+                i--;
+            }
+            else{
+                j--;
+            }
+        }
+
+
+    }
+     return set;
+        
+    }
+
+  
+
+     static int lcsHelperTtoD(int x, int y, String s1, String s2){
+
+         for(int i = 0 ; i < t.length ; i++){
+             for(int j = 0 ; j < t[0].length ; j++){
+                 if(i == 0 || j == 0){
+                     t[i][j] = 0;
+                     continue;
+                 }
+
+                 if(s1.charAt(i-1) == s2.charAt(j-1)){
+                     t[i][j] = t[i-1][j-1] + 1;
+                 }
+                 else{
+                     t[i][j] = Math.max(t[i-1][j] , t[i][j-1]);
+                 }
+
+             }
+            }
+            return t[x][y];
+         }
+}
