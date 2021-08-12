@@ -1,0 +1,75 @@
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main{
+    
+    public static class pair{
+        
+        int j;
+        int idx;
+        String asf;
+        int val;
+        
+        pair(int j , int idx , int val , String asf){
+            this.j = j;
+            this.idx = idx;
+            this.val = val;
+            this.asf = asf;
+         }
+        
+        
+    }
+    
+    public static void Solution(int arr[]){
+        // write your code here
+        
+        Integer[] dp = new Integer[arr.length];
+        dp[dp.length-1] = 0;
+        for(int i = arr.length-2 ; i>= 0 ; i--){
+            if(arr[i] != 0){
+                int max = Integer.MAX_VALUE;
+                for(int j = 1 ; j <= arr[i] && j + i < arr.length ; j++ ){
+                   if(dp[i+j] != null) {max = Math.min(max,dp[i+j]);}
+                }
+                
+                if(max != Integer.MAX_VALUE){
+                    dp[i] = max+1;
+                }
+                
+            }
+        }
+        System.out.println(dp[0]);
+        
+        ArrayDeque<pair> que = new ArrayDeque<>();
+        que.add(new pair(arr[0] , 0 , dp[0] ,  0 + "")  );
+        
+        while(que.size() > 0){
+            pair rem = que.removeFirst();
+            if(rem.val == 0){
+                System.out.println(rem.asf + " .");
+            }
+            for(int j = 1 ; j <= rem.j && rem.idx + j  < arr.length ; j++ ){
+               
+                if(dp[rem.idx+j] != null && dp[rem.idx+j] == rem.val - 1){
+                    que.add(new pair(arr[rem.idx+j] , rem.idx + j ,dp[rem.idx+j] , rem.asf + " -> " + (rem.idx + j)  ));
+                }
+            }
+            
+        }
+        
+      
+        
+    }
+    public static void main(String []args){
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+
+        int arr[] = new int[n];
+        for(int i = 0 ; i < n ; i++)
+            arr[i] = scn.nextInt();
+
+        Solution(arr);
+        scn.close();
+    }
+}
