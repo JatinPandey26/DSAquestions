@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+	public static int minScoreTriangulation(int[] arr) {
+		//write your code here
+		
+		int[][] dp = new int[arr.length][arr.length];
+		
+		for(int g = 0 ; g < arr.length ; g++){
+		    for(int i = 0 , j = g ; j  < arr.length ; i++, j++ ){
+		         if(g == 0 || g == 1){
+		             dp[i][j] = 0;
+		         }
+		         else if(g == 2){
+		             dp[i][j] = arr[i] * arr[i+1]*arr[i+2];     // triangle bnega uske vertices i , i+1 , i+2;
+		             
+		         }
+		         else{
+		             int min = Integer.MAX_VALUE;
+		             for(int k = i + 1; k <= j-1 ; k++){
+		              int selfScore = arr[i] * arr[k] * arr[j];
+		              int oneSideScore = dp[i][k] ;
+		              int otherSideScore = dp[k][j];
+		                 
+		              min = Math.min(min, selfScore + oneSideScore + otherSideScore )   ;
+		             }
+		             dp[i][j] = min;
+		             }
+		         }
+		    }
+		
+		
+		return dp[0][dp[0].length-1];
+	}
+  public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+		for(int i = 0 ; i  < n; i++){
+            arr[i] = scn.nextInt();
+        }
+        System.out.println(minScoreTriangulation(arr));
+	}
+}
