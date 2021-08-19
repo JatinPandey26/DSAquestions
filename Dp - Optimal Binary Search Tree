@@ -1,0 +1,57 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+ static int [][]t = new int[1001][1001];
+   private static int optimalbst(int[] keys, int[] freq, int n, int i , int j) {
+    //write your code here
+    
+    if(i > j ){
+        return 0;
+    }
+    if( i == j){
+        return freq[i];
+    }
+    
+    //
+    if(t[i][j] != -1){
+        return t[i][j];
+    }
+    
+    int min = Integer.MAX_VALUE;
+    for(int k = i ; k <= j ; k++){
+        int left = optimalbst(keys,freq,n,i,k-1);
+        int right =  optimalbst(keys,freq,n,k+1,j);
+        int fs = 0;
+        for(int m = i ; m <= j ; m++ ){
+            fs += freq[m];
+        }
+         
+       
+        min = Math.min(fs+left+right , min);
+        
+        
+    }
+    return t[i][j] = min;
+	}
+
+    public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		int n = scn.nextInt();
+	int[] keys = new int[n];
+	int[] frequency = new int[n];
+    for(int i= 0 ;i < n ; i++) {
+		keys[i] = scn.nextInt();
+	}
+	for(int i = 0 ; i < n; i++){
+      frequency[i] = scn.nextInt();
+    }
+    
+    for(int[] x : t){
+        Arrays.fill(x,-1);
+    }
+    
+System.out.println(optimalbst(keys,frequency,n,0,n-1));
+	}
+
+}
