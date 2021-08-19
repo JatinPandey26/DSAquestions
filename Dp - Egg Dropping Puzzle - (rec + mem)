@@ -25,3 +25,46 @@ static Integer[][] dp = new Integer[201][201];
 	    return min;
 	    
 	}
+
+
+
+        // optimized 
+	
+	 static Integer[][] dp = new Integer[101][10001];
+    public int solve(int e, int f) {
+     if(e == 1){
+	        dp[e][f] = f;
+	        return f;
+	    }
+	    if(f == 0 || f == 1){
+	        dp[e][f] = f;
+	        return f;
+	    }
+	    if(dp[e][f] != null){
+	        return dp[e][f];
+	    }
+	    int min = Integer.MAX_VALUE;
+	    
+	    int l = 1;
+        int h = f;
+
+        while(l <= h){
+            int k = l + (h-l)/2;
+
+            int breakyes = solve(e-1,k-1);
+            int breakno = solve(e,f-k);
+            int temp = 1 + Math.max(breakno,breakyes);
+
+            if(breakyes > breakno){
+                h = k-1;
+            }
+            else{
+                l = k+1;
+            }
+          min = Math.min(min,temp);
+
+        }
+
+	    dp[e][f] = min;
+	    return min;
+    }
