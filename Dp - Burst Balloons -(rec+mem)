@@ -1,0 +1,49 @@
+ static Integer[][] dp = new Integer[1001][1001]; 
+  public static int solution(int[] arr , int i , int j ) {
+    //write your code here
+   
+    if(i > j){
+        return 0;
+    }
+    if(i == j){
+           
+        int cost = arr[i];
+        
+        if(i > 0 ){
+            cost *= arr[i-1];
+            
+        }
+        if(j < arr.length - 1){
+            cost *= arr[j+1];
+        }
+        
+        dp[i][j] =  cost ;
+        return  cost;
+    }
+    if(dp[i][j] != null ){
+        return dp[i][j];
+    }
+    int max = 0;
+    
+    for(int k = i ; k <= j ; k++){
+        
+        int cost = arr[k];
+        
+        if(i > 0){
+           cost = cost * arr[i-1];
+        }
+        if(j !=  arr.length-1){
+            cost = cost * arr[j+1];
+        }
+        
+       
+    
+        int temp = solution(arr,i,k-1) + solution(arr,k+1,j) + cost;
+       
+        max = Math.max(max,temp);
+    }
+    
+    
+    dp[i][j] = max;
+    return max;
+  }
