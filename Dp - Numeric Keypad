@@ -1,0 +1,73 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static int solution(int n) {
+    //write your code here
+    int dp[][] =  new int [4][3];
+    int next[][] =  new int [4][3];
+
+    for (int i = 0 ; i < dp.length ; i++) {
+      for (int j = 0 ; j < dp[0].length ; j++ )
+      { if (i == 3) {
+          if (j == 1) {
+            dp[i][j] = 1;
+          }
+
+        }
+        else {
+          dp[i][j] = 1;
+        }
+      }
+    }
+
+    for (int m = 2 ; m <= n ; m++) {
+
+      for (int i = 0 ; i < dp.length ; i++) {
+        for (int j = 0 ; j < dp[0].length ; j++ )
+        { if (i == 3) {
+            if (j == 1) {
+              next[i][j] = dp[i-1][j] + dp[i][j] ;
+            }
+
+          }
+          else {
+            next[i][j] = dp[i][j] + (i > 0 ? dp[i-1][j]  : 0) + (i < dp.length-1  ? dp[i+1][j]  : 0) + (j > 0 ? dp[i][j-1]  : 0) + (j < dp[0].length-1  ? dp[i][j+1]  : 0) ;
+          }
+        }
+      }
+   dp = next;
+   next = new int[4][3];
+   
+
+    }
+    int sum = 0;
+     for (int i = 0 ; i < dp.length ; i++) {
+      for (int j = 0 ; j < dp[0].length ; j++ ) { 
+          sum += dp[i][j];
+      }
+     }
+
+ 
+
+
+    return sum;
+  }
+  public static void print(Integer [][] dp) {
+
+    for (int i = 0 ; i < dp.length ; i++) {
+      for (int j = 0 ; j < dp[0].length ; j++ ) {
+        System.out.print(dp[i][j] + " ");
+      }
+      System.out.println();
+    }
+
+  }
+
+  public static void main(String[] args) {
+    Scanner scn = new Scanner(System.in);
+    System.out.println(solution(scn.nextInt()));
+  }
+
+}
