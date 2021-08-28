@@ -1,0 +1,92 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static void solution(int[] arr, int k) {
+    // write your code here
+    int n = arr.length;
+
+    int[] psum = new int[n];
+    psum[0] = arr[0];
+    for (int i = 1 ; i < n ; i++) {
+      psum[i] = psum[i - 1] + arr[i];
+    }
+
+    int[] dp1 = new int[arr.length]; // left
+    int[] dp2 = new int[arr.length]; // right
+    int csum = 0;
+    for (int i = 0 ; i < arr.length ; i++) {
+
+      if (i < k) {
+        csum += arr[i];
+        dp1[i] = csum;
+      }
+      else {
+        csum = csum + arr[i] - arr[i - k];
+        dp1[i] = Math.max(dp1[i - 1], csum);
+
+      }
+    }
+    csum = 0;
+    for (int i = n - 1 ; i >= 0 ; i--) {
+      if (i + k >= n ) {
+        csum += arr[i];
+        dp2[i] = csum;
+      }
+      else {
+        csum = csum + arr[i] - arr[i + k];
+        dp2[i] = Math.max(dp2[i + 1], csum);
+
+      }
+    }
+    int maxSum = 0;
+    int spmsa = -1;
+    int lmsum = 0;
+    int rmsum = 0;
+    for (int i = k ; i < arr.length - 2 * k  ; i++)
+    {
+      int sum = dp1[i - 1] + dp2[i + k] + (psum[i + k - 1] - psum[i - 1] );
+      if (maxSum < sum) {
+        maxSum = dp1[i - 1] + dp2[i + k] + (psum[i + k - 1] - psum[i - 1] );
+        spmsa = i;
+        lmsum = dp1[i-1];
+        rmsum = dp2[i+k];
+      }
+    }
+    
+     System.out.print(maxSum + " ");
+    
+    for(int i = k-1 ; i < spmsa ; i++){
+        int lsum = psum[i] - (i - k <  0  ? 0 : psum[i-k] );
+        if(lsum == lmsum){
+            System.out.print(i- k + 1 + " ");
+            break;
+        }
+    }
+    System.out.print(spmsa + " ");
+     for(int i = spmsa + (2*k) - 1 ; i < n ; i++){
+        int rsum = psum[i] - (i - k == -1  ? 0 : psum[i-k] );
+        if(rsum == rmsum){
+            System.out.print(i - k + 1 + " ");
+            break;
+        }
+    }
+    
+    
+   
+
+  }
+
+  public static void main(String[] args) {
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    int[] arr = new int[n];
+    for (int i = 0 ; i < arr.length; i++) {
+      arr[i] = scn.nextInt();
+    }
+    int k = scn.nextInt();
+    solution(arr, k);
+  }
+
+}
