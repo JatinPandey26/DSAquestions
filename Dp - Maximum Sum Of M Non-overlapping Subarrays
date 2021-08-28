@@ -1,0 +1,52 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static int dp[][];
+	public static int solution(int[] arr,int idx ,  int m, int k , int[] psum){
+	   
+	   if(idx >= arr.length){
+	       return 0;
+	   }
+	   if(m == 0){
+	       return 0;
+	   }
+	   if(dp[idx][m] != -1){
+	       return dp[idx][m];
+	   }
+	    int include = psum[idx] +  solution(arr,idx + k ,  m-1 , k , psum);
+		int exclude = solution(arr,idx + 1 ,  m , k , psum);
+		
+		return dp[idx][m] = Math.max(include , exclude);
+	}
+	
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		int n = scn.nextInt();
+		int[] arr = new int[n];
+		for(int i = 0 ; i < arr.length; i++){
+			arr[i] = scn.nextInt();
+		}
+        int m = scn.nextInt();
+        int k = scn.nextInt();
+        int[] psum = new int[n];
+        
+        int sum = 0;
+        for(int i = 0 ; i < k ; i++){
+            sum+= arr[i];
+        }
+        psum[0] = sum;
+        
+        for(int i = k , j = 0 ; i< n ; j++ ,i++){
+           sum += arr[i] - arr[j];
+           psum[j+1] = sum;
+        }
+        dp = new int[n+1][m+1];
+        for(int[] x : dp){
+            Arrays.fill(x,-1);
+        }
+        
+        System.out.println(solution(arr,0 , m , k , psum));
+	}
+
+}
