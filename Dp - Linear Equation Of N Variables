@@ -1,0 +1,32 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static long solution(int[] arr, int x) {
+    long[] dp = new long[x+1];
+    dp[0] = 1;
+    for(int i = 0 ; i < arr.length ; i++){
+       
+       for(int j = arr[i] ; j <= x ; j++){
+          
+               dp[j] += dp[j-arr[i]] ;
+           
+       }
+        
+    }
+    return dp[x];
+  }
+
+  public static void main(String[] args) {
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    int[] arr = new int[n];
+    for (int i = 0 ; i < n; i++) {
+      arr[i] = scn.nextInt();
+    }
+    int x = scn.nextInt();
+    System.out.println(solution(arr, x));
+  }
+
+}
