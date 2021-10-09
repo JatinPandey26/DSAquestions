@@ -1,0 +1,22 @@
+public static int trap(int[] height) {
+        Stack<Integer> st = new Stack<>();
+        
+        int ans = 0;
+        
+        for(int i = 0 ; i < height.length ; i++){
+            while(st.size() > 0  &&  height[i] > height[st.peek()] ){
+                int ri = i;
+                int ht = height[st.pop()];
+                if(st.size() == 0){
+                    break;
+                }
+                int li = st.peek();
+                int len = ri - li - 1;
+                int water = (Math.min(height[li] , height[ri]) - ht) * len   ;
+                ans += water;
+            }
+            st.push(i);
+        }
+        
+        return ans;
+    }
