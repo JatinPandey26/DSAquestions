@@ -1,0 +1,19 @@
+ public static int[] smallest(int[] nums, int k) {
+    Stack<Integer> st = new Stack<>();
+    for(int i = 0 ; i < nums.length ; i++){
+        int val = nums[i];
+        
+        while(st.size() > 0 && k - st.size() <= nums.length - i - 1 && st.peek() > val ){
+            st.pop();
+        }
+        
+        if(st.size() < k ){st.push(val);}
+        
+    }
+    
+    int [] arr = new int[k];
+    for(int i = k - 1 ; i >= 0 ; i--){
+        arr[i] = st.pop();
+    }
+    return arr;
+  }
