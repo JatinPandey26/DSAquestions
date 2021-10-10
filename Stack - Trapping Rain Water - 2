@@ -1,0 +1,84 @@
+import java.util.*;
+
+public class Main {
+ 
+  public class pair implements Comparable<pair> {
+      int row;
+      int col;
+      int height;
+      
+      public pair(int row , int col , int height){
+          this.row = row;
+          this.col = col;
+          this.height = height;
+      }
+      
+      public int compareTo(pair o){
+          return this.height - o.height;
+      }
+      
+  }
+  
+  public int trappingRainWater2(int[][] heights,int m ,int n){
+      PriorityQueue<pair> pq = new PriorityQueue<>();
+      boolean[][] vis = new boolean[m][n];
+      for(int i = 0 ; i < m ; i++){
+       for(int j = 0 ; j < n ; j++){
+           if(i == 0 || j == 0 || i == m-1 || j == n-1){
+               pq.add(new pair(i,j,heights[i][j]));
+               vis[i][j] = true;
+           }
+       }
+   }
+   int[][] dirs = {{0,1} ,{0,-1} , {1,0} , {-1,0} };
+   int water = 0;
+   while(pq.size() > 0){
+       pair rem = pq.remove();
+       
+       for(int[] dir : dirs){
+           int rowdash = rem.row + dir[0];
+           int coldash = rem.col + dir[1];
+           
+           if(rowdash >= 0 && coldash >=0 && rowdash < m && coldash < n  && vis[rowdash][coldash] == false){
+               
+              if(heights[rowdash][coldash] >= rem.height){
+                  water += 0;
+                  pq.add(new pair(rowdash,coldash,heights[rowdash][coldash]));
+              }
+              else{
+                  water += rem.height - heights[rowdash][coldash];
+                  pq.add(new pair(rowdash,coldash,rem.height));
+              }
+               vis[rowdash][coldash] = true;
+           }
+           
+       }
+       
+       
+   }
+      return water;
+  }
+  
+  
+  public static void main(String[] args) {
+   
+   Scanner sn = new Scanner(System.in);
+   
+   int m = sn.nextInt();
+   int n = sn.nextInt();
+   
+   int[][] arr = new int[m][n];
+   
+   for(int i = 0 ; i < m ; i++){
+       for(int j = 0 ; j < n ; j++){
+           arr[i][j] = sn.nextInt();
+       }
+   }
+   
+   
+   
+   
+  }
+  
+
+}
