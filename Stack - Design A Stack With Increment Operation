@@ -1,0 +1,45 @@
+public static class CustomStack {
+    
+        int value[];
+        int increment[];
+        int index;
+        
+        public CustomStack(int maxSize) {
+            value = new int[maxSize];
+            increment = new int[maxSize];
+            index=-1;
+        }
+        
+        public void push(int x) {
+            // complete this function
+            if(index+1 == value.length){
+                return;
+            }
+            index++;
+            value[index] = x;
+            increment[index] = 0;
+        }
+        
+        public int pop() {
+            // complete this function
+            if(index <= -1){
+                return -1;
+            }
+            
+            int val = value[index];
+            int inc = increment[index];
+            index--;
+            if(index > -1){
+                increment[index] += inc;
+            }
+            return val + inc;
+        }
+        
+        public void increment(int k, int val) {
+            // complete this function
+            int idx = Math.min(index,k-1);
+            if(index >= 0){
+                 increment[idx] += val;
+            }
+           
+        }
