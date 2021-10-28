@@ -1,0 +1,31 @@
+ public static ListNode copyRandomList(ListNode head) {
+        ListNode curr = head;
+        
+        
+        while(curr != null){
+            ListNode next = curr.next;
+            ListNode nNode = new ListNode(curr.val);
+            curr.next = nNode;
+            nNode.next = next;
+            curr = next;
+            
+        }
+        
+        // display(head);
+        
+        ListNode dummy = new ListNode(-1);
+        ListNode ptr = dummy;
+        ListNode pre = head;
+        
+        
+        while(pre != null){
+            ListNode cur = pre.next;
+            ptr.next = cur;
+            pre.next = cur.next;
+            cur.random = pre.random;
+            pre = pre.next;
+            ptr = ptr.next;
+        }
+        
+        return dummy.next;
+    }
