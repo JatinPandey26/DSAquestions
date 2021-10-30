@@ -1,0 +1,42 @@
+
+  public static ListNode IntersectionNodeInTwoLL(ListNode headA, ListNode headB) {
+    int lenA = length(headA);
+    int lenB = length(headB);
+    int diff = Math.abs(lenA - lenB);
+    
+    ListNode ptrA = headA;
+    ListNode ptrB = headB;
+    if(lenA > lenB){
+        while(diff > 0){
+            ptrA = ptrA.next;
+            diff--;
+        }
+    } 
+    if(lenA < lenB){
+        while(diff > 0){
+            ptrB = ptrB.next;
+            diff--;
+        }
+    } 
+    
+    
+    while(ptrA != ptrB){
+        ptrA = ptrA.next;
+        ptrB = ptrB.next;
+    }
+      
+    return ptrA;
+  }
+  
+  public static int length(ListNode head){
+      ListNode temp = head;
+      int len = 1;
+      
+      while(temp != null){
+          temp = temp.next;
+          len++;
+      }
+      
+      return len;
+      
+  }
