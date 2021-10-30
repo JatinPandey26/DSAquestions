@@ -1,0 +1,28 @@
+ public static ListNode CycleNode(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if(slow == fast){
+                break;
+            }
+        }
+        
+        if(slow != fast){
+            return null;
+        }
+        
+        slow = head;
+        fast = fast;
+        
+        while(slow != fast){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        
+        
+        
+        return fast;
+    }
