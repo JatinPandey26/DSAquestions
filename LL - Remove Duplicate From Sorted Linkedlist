@@ -1,0 +1,18 @@
+public static ListNode removeDuplicates(ListNode head) {
+        ListNode dummy = new ListNode(-1);
+        ListNode itr = dummy;
+        ListNode curr = head;
+        
+        while(curr != null){
+            if(curr.val == itr.val){
+                curr = curr.next;
+            }
+            else{
+                itr.next = curr;
+                itr = itr.next;
+            }
+        }
+        
+        itr.next = null;
+        return dummy.next;
+    }
