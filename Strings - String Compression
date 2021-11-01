@@ -1,0 +1,77 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static String compression1(String str) {
+    // write your code here
+
+    Set<Character> set = new HashSet<Character>();
+    String ans = "";
+    for (int i = 1 ; i < str.length() ; i++ ) {
+      char curr = str.charAt(i);
+      char prev = str.charAt(i - 1);
+      if (prev != curr) {
+         ans += prev;
+      }
+      
+      if (i == str.length() - 1){
+          ans += curr;
+      }
+      
+    }
+
+      return ans;
+    }
+
+    public static String compression2(String str) {
+      // write your code here
+
+
+      String ans = "";
+      int cnt = 1;
+      for (int i = 1 ; i < str.length() ; i++ ) {
+        char curr = str.charAt(i);
+        char prev = str.charAt(i - 1);
+        if (prev == curr) {
+          cnt++;
+        }
+        else {
+
+          if (cnt <= 1) {
+            ans += prev;
+          }
+          else {
+
+            ans += prev + "" + cnt;
+          }
+          cnt = 1;
+        }
+
+
+        if (i == str.length() - 1) {
+          if (cnt <= 1) {
+            ans += curr;
+          }
+          else {
+
+            ans += curr + "" + cnt;
+          }
+        }
+
+      }
+
+
+
+      return ans;
+
+
+    }
+    public static void main(String[] args) {
+      Scanner scn = new Scanner(System.in);
+      String str = scn.next();
+      System.out.println(compression1(str));
+      System.out.println(compression2(str));
+    }
+
+  }
