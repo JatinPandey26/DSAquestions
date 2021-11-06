@@ -1,0 +1,19 @@
+
+	public static int solution(int n) {
+		//write your code here
+		int ans = 0;
+		int temp = n;
+		for(int i = 2 ; i*i <= n ;){
+		    if(n%i == 0){
+		        ans += i;
+		        n /= i;
+		    }
+		    else{
+		        i++;
+		    }
+		}
+		if(n != 1){
+		    ans += n;
+		}
+		return ans;
+	}
