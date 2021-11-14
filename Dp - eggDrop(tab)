@@ -1,0 +1,39 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static Integer[][] dp = new Integer[101][51];
+	public static int eggDrop(int e , int f){
+		int[][] dp = new int[e+1][f+1];
+		
+		for(int i = 1 ; i <dp.length ; i++){
+		    for(int j = 1 ; j < dp[0].length ; j++){
+		        if(i == 1){
+		            dp[i][j] = j;
+		        }
+		       else  if(j == 1){
+		            dp[i][j] = 1;
+		        }
+		        else{
+		            int min = Integer.MAX_VALUE;
+		            for(int k = 1 ; k <= j ; k++){
+		                int attempt = 1 + Math.max(dp[i-1][k-1],dp[i][j-k]);
+		                min  = Math.min(attempt,min);
+		            }
+		            dp[i][j] = min;
+		            
+		        }
+		    }
+		}
+		return dp[e][f];
+	} 
+
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		//n -> number of eggs and k -> number of floors
+		int n = scn.nextInt();
+		int k = scn.nextInt();
+		System.out.println(eggDrop(n,k));
+	}
+	
+}
