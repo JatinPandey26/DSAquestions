@@ -1,0 +1,138 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+  public static class MyCircularDeque<T> {
+
+    /** Initialize your data structure here.*/
+    public class Node{
+        T data;
+        Node pre , next;
+        
+        Node(){
+            this.data = null;
+        }
+        
+        Node(T val){
+            this.data = val;
+        }
+        
+        public T delete(){
+            this.pre.next = this.next;
+            this.next.pre = this.pre;
+            return data;
+        }
+        
+    }
+    public Node front;
+    public Node rear;
+    int size = 0;
+    public MyCircularDeque() {
+        front = new Node();
+        rear = new Node();
+        front.next = rear;
+        rear.pre = front;
+    }
+
+    /**
+     * Adds an item at the front of Deque.
+     */
+     
+    public void insertFront(T value) {
+        Node node = new Node(value);
+        node.next = front.next;
+        front.next = node;
+        node.pre = front;
+        node.next.pre = node;
+        size++;
+    }
+
+    /**
+     * Adds an item at the rear of Deque.
+     */
+    public void insertLast(T value) {
+        Node node = new Node(value);
+        node.pre = rear.pre;
+        rear.pre = node;
+        node.next = rear;
+        node.pre.next = node;
+        size++;
+    }
+
+    /**
+     * Deletes the front item from the Deque and return it's value. If the deque is empty, return null.
+     */
+    public T deleteFront() {
+        if(size == 0){
+            return null;
+        }
+        Node n = front.next;
+        size--;
+        return n.delete();
+    }
+
+    /**
+     * Deletes the last item from Deque and return it's value. If the deque is empty, return null.
+     */
+    public T deleteLast() {
+           if(size == 0){
+            return null;
+        }
+        Node n = rear.pre;
+        size--;
+        return n.delete();
+    }
+
+    /** Gets the front item from the Deque. If the deque is empty, return null. */
+    public T getFront() {
+        if(size == 0){
+            return null;
+        }
+        return front.next.data;
+    }
+
+    /** Gets the last item from Deque. If the deque is empty, return null. */
+    public T getRear() {
+        if(size == 0){
+            return null;
+        }
+        return rear.pre.data;
+    }
+
+    /** Checks whether the circular deque is empty or not. */
+    public boolean isEmpty() {
+        if(size == 0){
+            return true;
+        }
+        return false;
+    }
+  }
+
+  public static void main(String[] args) throws Exception {
+    BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+
+    MyCircularDeque<Integer> obj = new MyCircularDeque<>();
+
+    while (read.ready()) {
+      String inp[] = read.readLine().split(" ");
+      String s = inp[0];
+
+      if (s.equals("insertLast")) {
+        obj.insertLast(Integer.parseInt(inp[1]));
+      } else if (s.equals("insertFront")) {
+        obj.insertFront(Integer.parseInt(inp[1]));
+      } else if (s.equals("deleteFront")) {
+        System.out.println(obj.deleteFront());
+      } else if (s.equals("deleteLast")) {
+        System.out.println(obj.deleteLast());
+      } else if (s.equals("getFront")) {
+        System.out.println(obj.getFront());
+      } else if (s.equals("getRear")) {
+        System.out.println(obj.getRear());
+      } else if (s.equals("isEmpty")) {
+        System.out.println(obj.isEmpty());
+      }
+    }
+
+  }
+}
