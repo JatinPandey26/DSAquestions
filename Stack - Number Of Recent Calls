@@ -1,0 +1,33 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+  public static class RecentCounter {
+    ArrayDeque<Integer> q ;
+    public RecentCounter() {
+        q = new ArrayDeque<>();
+    }
+
+    public int ping(int t) {
+    q.add(t);    
+     int start = t - 3000;
+     while(q.size() > 0 && q.peek() < start){
+         q.remove();
+     }
+      return q.size();
+    }
+  }
+
+  public static void main(String[] args) throws Exception {
+    BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+
+    RecentCounter obj = new RecentCounter();
+
+    while (read.ready()) {
+      int val = Integer.parseInt(read.readLine());
+      int ans = obj.ping(val);
+      System.out.println(ans);
+    }
+
+  }
+}
