@@ -1,0 +1,44 @@
+public static ListNode segregate012(ListNode head) {
+    ListNode zero = new ListNode(-1);
+    ListNode one = new ListNode(-1);
+    ListNode two = new ListNode(-1);
+
+    ListNode ptr0 = zero;
+    ListNode ptr1 = one;
+    ListNode ptr2 = two;
+
+    ListNode ptr = head;
+
+    while (ptr != null) {
+      if (ptr.val == 0) {
+        ptr0.next = ptr;
+        ptr0 = ptr0.next;
+      }
+      else if (ptr.val == 1) {
+        ptr1.next = ptr;
+        ptr1 = ptr1.next;
+      }
+      else {
+        ptr2.next = ptr;
+        ptr2 = ptr2.next;
+      }
+      ptr = ptr.next;
+    }
+    ptr0.next = one.next;
+    ptr1.next = two.next;
+    ptr2.next = null;
+
+    ListNode ans = null;
+
+    if (zero.next != null) {
+      ans = zero.next;
+    }
+    else if (one.next != null) {
+      ans = one.next;
+    }
+    else {
+      ans = two.next;
+    }
+    return ans ;
+
+  }
