@@ -1,0 +1,47 @@
+  public static ListNode segregate(ListNode head, int pivotIdx) {
+
+    ListNode pivot = head;
+    int idx = 0;
+    while (pivot != null) {
+      if (idx == pivotIdx) {
+        break;
+      }
+
+      idx += 1;
+      pivot = pivot.next;
+
+    }
+
+    ListNode smaller = new ListNode(-1);
+    ListNode larger = new ListNode(-1);
+    
+    ListNode ps = smaller;
+    ListNode pl = larger;
+    
+    ListNode curr = head;
+     idx = 0;
+    while(curr != null){
+        
+        if(idx == pivotIdx){
+           
+            pivot = curr;
+            
+        }
+        
+       else if(curr.val <= pivot.val){
+            ps.next = curr;
+            ps = ps.next;
+        }
+        else{
+            pl.next = curr;
+            pl = pl.next;
+        }
+        curr = curr.next;
+        idx++;
+    }
+    ps.next = pivot;
+    pivot.next = larger.next;
+    pl.next = null;
+    
+    return smaller.next;
+  }
