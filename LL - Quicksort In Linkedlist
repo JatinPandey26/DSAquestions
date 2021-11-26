@@ -1,0 +1,157 @@
+import java.util.*;
+
+class Main {
+  public static Scanner scn = new Scanner(System.in);
+
+  public static class ListNode {
+    int val = 0;
+    ListNode next = null;
+
+    ListNode(int val) {
+      this.val = val;
+    }
+  }
+
+
+ /////////////////////////////////   quickSort    ///////////////////////////////
+
+
+
+  public static ListNode[] quickSort(ListNode head) {
+    if (head == null || head.next == null) {
+      return new ListNode[] {head, head};
+      }
+
+
+      ListNode[] segregatedList = segregate(head);
+
+      ListNode[] left = quickSort(segregatedList[0]);
+      ListNode[] right = quickSort(segregatedList[2]);
+      
+      
+
+      ListNode[] mergedList = mergeSortedList(left,segregatedList[1],right);
+      return mergedList;
+    }
+
+
+ /////////////////////////////////   mergeSortedList    ///////////////////////////////
+
+
+    public  static ListNode[] mergeSortedList(ListNode[] left, ListNode pivot, ListNode[] right) {
+
+      ListNode head = null, tail = null;
+
+      if (left[0] != null && right[0] != null) {
+        left[1].next = pivot;
+        pivot.next = right[0];
+        head = left[0];
+        tail = right[1];
+      }
+
+      else if (left[0] == null && right[0] != null) {
+        pivot.next = right[0];
+        head = pivot;
+        tail = right[1];
+      }
+      
+      else if(left[0] != null && right[0] == null){
+        left[1].next = pivot;
+        pivot.next = null;
+        head = left[0]; 
+        tail = pivot;
+      }
+      
+      else{
+          head = pivot;
+          tail = pivot;
+      }
+
+      return new ListNode[] {head, tail};
+
+      }
+      
+      
+    /////////////////////////////////   segregate    ///////////////////////////////
+    
+    
+      public static  ListNode[] segregate(ListNode head) {
+        ListNode pivot = head;
+        int len = length(head);
+
+        while (pivot.next != null) {
+          pivot = pivot.next;
+        }
+
+        ListNode smaller = new ListNode(-1);
+        ListNode larger = new ListNode(-1);
+
+        ListNode ps = smaller;;
+        ListNode pl = larger;
+
+        ListNode curr = head;
+        int idx = 0;
+        while (curr != null) {
+            if(idx == len-1){
+                curr = curr.next;
+                idx++;
+                continue;
+            }
+          if (curr.val <= pivot.val) {
+            ps.next = curr;
+            ps = ps.next;
+          }
+          else if (curr.val > pivot.val) {
+            pl.next = curr;
+            pl = pl.next;
+          }
+          curr = curr.next;
+          idx++;
+        }
+       ps.next = null;
+       pl.next = null;
+
+        return new  ListNode[] {smaller.next, pivot, larger.next};
+
+
+      }
+
+
+
+      public static void printList(ListNode node) {
+        while (node != null) {
+          System.out.print(node.val + " ");
+          node = node.next;
+        }
+        System.out.println();
+      }
+      
+      public static int length(ListNode head){
+          int len = 0;
+          ListNode node = head;
+           while (node != null) {
+          len++;
+          node = node.next;
+        }
+        return len;
+      }
+
+      public static ListNode createList(int n) {
+        ListNode dummy = new ListNode(-1);
+        ListNode prev = dummy;
+        while (n-- > 0) {
+          prev.next = new ListNode(scn.nextInt());
+          prev = prev.next;
+        }
+
+        return dummy.next;
+      }
+
+      public static void main(String[] args) {
+        int n = scn.nextInt();
+        ListNode h1 = createList(n);
+
+        ListNode[] sortedList = quickSort(h1);
+        printList(sortedList[0]);
+      }
+    }
