@@ -1,0 +1,17 @@
+  public int removeBefore(Node refNode) {
+      if(refNode.prev == null){
+          System.out.print("LocationIsInvalid: ");
+        return -1;
+      }
+      
+      Node bckw = refNode.prev;
+      
+       if(bckw.prev == null){
+        return removeFirst();  
+      }
+      
+      bckw.prev.next = refNode;
+      refNode.prev = bckw.prev;
+      this.size--;
+      return bckw.data;
+    }
