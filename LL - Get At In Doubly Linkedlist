@@ -1,0 +1,18 @@
+public int getAt(int index) {
+      if (ListIsEmptyException())
+        return -1;
+      if (index < 0 || index >= size) {
+        System.out.print("IndexIsInValid: ");
+        return -1;
+      }
+
+      int idx = 0;
+      Node node = head;
+      while(idx != index){
+          node = node.next;
+          idx++;
+      }
+      
+      return node.data;
+
+    }
