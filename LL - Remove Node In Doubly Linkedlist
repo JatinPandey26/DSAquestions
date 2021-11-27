@@ -1,0 +1,23 @@
+   public int removeNode(Node refNode) {
+      if(refNode.prev == null){
+          return removeFirst();
+      }
+      else if(refNode.next == null){
+          return removeLast();
+      }
+      
+      Node bckw = refNode.prev;
+      Node forw = refNode.next;
+      
+      bckw.next = forw;
+      forw.prev = bckw;
+      
+      this.size--;
+      
+      return refNode.data;
+    }
+
+    public int removeNode(int idx) {
+      Node node = getNodeAt(idx);
+      return removeBefore(node);
+    }
