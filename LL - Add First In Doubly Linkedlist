@@ -1,0 +1,8 @@
+   public void addFirst(int val) {
+     Node node = new Node(val);
+     
+     node.next = head;
+     head = node;
+     node.prev = null;
+     
+    }
