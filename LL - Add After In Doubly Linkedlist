@@ -1,0 +1,25 @@
+
+    public void addAfter(Node refNode, int data) {
+       if(refNode.next == null){
+          addLast(data);
+      }
+      else{
+          Node node = new Node(data);
+
+          Node nextNode = refNode.next;
+          
+          refNode.next = node;
+          node.prev = refNode;
+          
+          node.next = nextNode;
+          nextNode.prev = node;
+
+          this.size++;
+
+      }
+    }
+
+    public void addAfter(int idx, int data) {
+      Node node = getNodeAt(idx);
+      addAfter(node, data);
+    }
