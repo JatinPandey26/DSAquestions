@@ -1,0 +1,32 @@
+ public void addAt(int index, int data) {
+     
+      if (index < 0 || index > this.size) {
+        System.out.println("IndexIsInValid: -1");
+        return ;
+      }
+      
+      if(index == 0){
+          addFirst(data);
+          return;
+      }
+      else if(index == this.size){
+        addLast(data);
+        return;
+      }
+
+      int idx = 0;
+      Node ptr = head;
+      while (ptr != null && idx != index-1) {
+        ptr = ptr.next;
+        idx++;
+      }
+
+      Node node = new Node(data);
+      
+      node.next = ptr.next;
+      ptr.next.prev = node;
+      ptr.next = node;
+      node.prev = ptr;
+      this.size++;
+      
+    }
