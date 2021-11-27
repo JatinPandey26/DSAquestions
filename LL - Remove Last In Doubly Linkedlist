@@ -1,0 +1,17 @@
+ public int removeLast() {
+      if (this.size == 0) {
+        return -1;
+      }
+      if (this.size == 1) {
+        Node node = head;
+        this.head = this.tail = null;
+        this.size -= 1;
+        return node.data;
+      }
+
+      Node node = this.tail;
+      this.tail = this.tail.prev;
+      this.tail.next = null;
+      this.size -= 1;
+      return node.data;
+    }
