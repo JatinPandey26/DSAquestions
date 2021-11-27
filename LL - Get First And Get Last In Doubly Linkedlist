@@ -1,0 +1,15 @@
+// getFunctions======================================
+
+    public int getFirst() {
+      if (this.size == 0) {
+        return -1;
+      }
+      return head.data;
+    }
+
+    public int getLast() {
+      if (this.size == 0) {
+        return -1;
+      }
+      return tail.data;
+    }
