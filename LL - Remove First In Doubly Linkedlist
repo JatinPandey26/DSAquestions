@@ -1,0 +1,21 @@
+public int removeFirst() {
+        
+    if(this.size == 0 ){
+        System.out.print("ListIsEmpty: ");
+        return -1;
+    }
+    
+    if(this.size == 1){
+        Node node = head;
+        this.head = null;
+        this.tail = null;
+        this.size -= 1;
+        return node.data;
+    }
+        
+     Node node = head;
+     head = head.next;
+     head.prev = null;
+     this.size -= 1;
+     return node.data;
+    }
