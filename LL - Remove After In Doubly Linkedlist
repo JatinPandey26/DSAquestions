@@ -1,0 +1,26 @@
+ public int removeAfter(Node refNode) {
+      if (refNode.next == null) {
+        return removeLast();
+      }
+      else if (refNode.next.next == null) {
+        Node node = refNode.next;
+        refNode.next = null;
+        this.size--;
+        return node.data;
+      }
+
+      Node node = refNode.next;
+
+      Node right = refNode.next.next;
+
+      right.prev = refNode;
+      refNode.next = right;
+      this.size--;
+     return node.data;
+
+    }
+
+    public int removeAfter(int idx) {
+      Node node = getNodeAt(idx);
+      return removeAfter(node);
+    }
