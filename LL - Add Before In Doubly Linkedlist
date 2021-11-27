@@ -1,0 +1,25 @@
+
+    public void addBefore(Node refNode, int data) {
+      if(head.data == refNode.data){
+          addFirst(data);
+      }
+      else{
+          Node node = new Node(data);
+          
+          Node prevNode = refNode.prev;
+          
+          prevNode.next = node;
+          node.prev = prevNode;
+          
+          refNode.prev = node;
+          node.next = refNode;
+          
+          this.size++;
+          
+      }
+    }
+
+    public void addBefore(int idx, int data) {
+      Node node = getNodeAt(idx);
+      addBefore(node, data);
+    }
