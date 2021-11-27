@@ -1,0 +1,9 @@
+  public void addLast(int val) {
+      // complete this function.
+      Node node = new Node(val);
+      node.prev = this.tail;
+      this.tail.next = node;
+      this.tail = node;
+      node.next = null;
+      this.size++;
+    }
