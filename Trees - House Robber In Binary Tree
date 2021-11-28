@@ -1,0 +1,29 @@
+    public static class pair{
+        int withRob;
+        int withOutRob;
+        
+        pair(int p , int q){
+            this.withRob = p;
+            this.withOutRob = q;
+        }
+    } 
+    
+    public static pair HouseRobber_(TreeNode root) {
+        
+        if(root == null){
+            return new pair(0,0);
+        }
+        
+        pair lp = HouseRobber_(root.left);
+        pair rp = HouseRobber_(root.right);
+        
+        int withRob = lp.withOutRob + rp.withOutRob + root.val;
+        int withOutRob = Math.max(lp.withRob, lp.withOutRob ) + Math.max(rp.withRob, rp.withOutRob);
+        
+        return new pair(withRob,withOutRob); 
+    }
+    
+    public static int HouseRobber(TreeNode root) {
+        pair ans = HouseRobber_(root);
+        return Math.max(ans.withRob,ans.withOutRob);
+    }
