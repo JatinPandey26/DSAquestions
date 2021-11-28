@@ -1,0 +1,30 @@
+    static int camera = 0;
+    public static int MinCamerasInBT_(TreeNode root) {
+        
+        if(root == null ){
+            return 1;
+        }
+        
+        
+        int right = MinCamerasInBT_(root.right);
+        int left = MinCamerasInBT_(root.left);
+        
+        if(right == -1 || left == -1){
+            camera++;
+            return 0;
+        }
+        else if(right == 0 || left == 0){
+            return 1;
+        }
+        else{
+            return -1;
+        }
+       
+    }
+    
+    public static int MinCamerasInBT(TreeNode root){
+        if(MinCamerasInBT_(root) == -1){
+            camera++;
+        }
+        return camera;
+    }
