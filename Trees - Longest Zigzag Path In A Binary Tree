@@ -1,0 +1,36 @@
+ public static class pair {
+    int forw;
+    int bckw;
+    int maxLen;
+    pair(int forw, int bckw, int maxLen) {
+      this.forw = forw;
+      this.bckw = bckw;
+      this.maxLen = maxLen;
+    }
+  }
+
+  public static pair longestZigZagPath_(TreeNode root) {
+
+    if (root == null   ) {
+      return new pair(-1, -1,0);
+    }
+
+    pair lp = longestZigZagPath_(root.left);
+    pair rp = longestZigZagPath_(root.right);
+
+    int maxLen = Math.max(Math.max(lp.maxLen, rp.maxLen), Math.max(lp.bckw, rp.forw) + 1 );
+
+    int forw = lp.bckw + 1;
+    int bckw = rp.forw + 1;
+
+    return new pair(forw, bckw, maxLen);
+
+  }
+
+  public static int longestZigZagPath(TreeNode root) {
+
+    pair ans =  longestZigZagPath_(root);
+
+
+    return ans.maxLen;
+  }
