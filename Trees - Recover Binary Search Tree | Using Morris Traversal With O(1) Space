@@ -1,0 +1,59 @@
+ public static TreeNode getRightMostNode(TreeNode ln, TreeNode curr){
+      while(ln.right != null && ln.right != curr){
+          ln = ln.right;
+      }
+      return ln;
+  }
+
+  public static void recoverTree(TreeNode root) {
+
+    TreeNode larger = null;
+    TreeNode prev  = null;
+
+
+    TreeNode curr = root;
+    while (curr != null) {
+      TreeNode ln = curr.left;
+
+      if (ln == null) {
+        if (prev != null && prev.val > curr.val) {
+          if (larger == null) {
+            larger = prev;
+          }
+          else {
+            int temp = curr.val;
+            curr.val = larger.val;
+            larger.val = temp;
+          }
+        }
+        prev = curr;
+
+
+        curr = curr.right;
+      }
+      else {
+        ln = getRightMostNode(ln,curr);
+        if (ln.right == curr) {
+          if (prev != null && prev.val > curr.val) {
+            if (larger == null) {
+              larger = prev;
+            }
+            else {
+              int temp = curr.val;
+              curr.val = larger.val;
+              larger.val = temp;
+            }
+          }
+          prev = curr;
+
+
+          curr = curr.right;
+          ln.right = null;
+        }
+        else {
+          ln.right = curr;
+          curr = curr.left;
+        }
+      }
+
+    }
