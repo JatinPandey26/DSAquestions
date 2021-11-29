@@ -1,0 +1,31 @@
+static HashMap<Integer, Integer> hmap;
+
+  public static TreeNode buildTree_(int[] preorder, int psi, int pei, int[] inorder, int isi, int iei, HashMap<Integer, Integer> hmap ) {
+
+    if (psi > pei || isi > iei) return null;
+
+    int inPos = hmap.get(preorder[psi]); // pos of root in inorder
+    int colsc =  inPos - isi; // count of left subtree childs
+
+    TreeNode node = new TreeNode(preorder[psi]);
+
+    node.left = buildTree_(preorder, psi + 1, psi + colsc, inorder, isi, inPos - 1, hmap);
+    node.right = buildTree_(preorder, psi + colsc + 1, pei , inorder, inPos + 1, iei , hmap);
+
+
+   return node;
+
+  }
+
+  public static TreeNode buildTree(int[] preorder, int[] inorder) {
+
+    hmap = new HashMap<>();
+
+    for (int i = 0 ; i < inorder.length ; i++) {
+      hmap.put(inorder[i], i);
+    }
+
+    return buildTree_(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, hmap);
+
+
+  }
