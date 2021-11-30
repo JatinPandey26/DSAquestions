@@ -1,0 +1,17 @@
+ static int idx = 0;
+
+  public static TreeNode bstFromPreorder(int[] preorder, int left, int right) {
+
+    if (idx >= preorder.length || left > preorder[idx] || right < preorder[idx]) return null;
+
+
+    TreeNode node = new TreeNode(preorder[idx++]);
+
+    node.left = bstFromPreorder(preorder, left, node.val);
+    node.right = bstFromPreorder(preorder, node.val, right);
+
+
+    return node;
+
+
+  }
