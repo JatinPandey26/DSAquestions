@@ -1,0 +1,13 @@
+    public static TreeNode constructFromInOrder(int[] inOrder , int isi , int iei ) {
+        
+        if(isi > iei) return null;
+        
+        int mid = isi + (iei-isi)/2;
+        
+        TreeNode node = new TreeNode(inOrder[mid]);
+        
+        node.left = constructFromInOrder(inOrder,isi,mid-1);
+        node.right = constructFromInOrder(inOrder,mid+1,iei);
+        
+        return node;
+    }
