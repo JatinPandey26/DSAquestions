@@ -1,0 +1,39 @@
+static HashMap<Integer, Integer> hmap;
+
+  public static TreeNode constructFromPrePost_(int[] pre, int psi, int pei, int[] post, int posi, int poei ) {
+    
+    if(psi > pei || posi > poei){
+        return null;
+    }
+    
+    if(psi == pei){
+        return new TreeNode(pre[psi]);
+    }
+ 
+ 
+    int valLeftNode =  pre[psi+1];
+
+    int idx = hmap.get(valLeftNode);
+    
+    int colst = idx - posi + 1;  // count of left subtree;
+    
+    TreeNode node = new TreeNode(pre[psi]);
+
+    node.left = constructFromPrePost_(pre , psi+1 , psi + colst , post , posi , idx);
+    node.right = constructFromPrePost_(pre , psi + colst + 1 , pei , post , idx+1 , poei-1);
+
+    return node;
+   
+  }
+
+  public static TreeNode constructFromPrePost(int[] pre, int[] post) {
+
+    hmap = new HashMap<>();
+
+    for (int i = 0 ; i < post.length ; i++) {
+      hmap.put(post[i], i);
+    }
+
+
+    return constructFromPrePost_(pre, 0, pre.length - 1, post, 0, post.length - 1 ) ;
+  }
