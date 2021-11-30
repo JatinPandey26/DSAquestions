@@ -1,0 +1,31 @@
+ static HashMap<Integer, Integer> hmap;
+  
+  public static TreeNode buildTree_(int[] inorder, int isi , int iei , int[] postorder , int psi , int pei, HashMap<Integer, Integer> hmap) {
+    
+    if(psi > pei || isi > iei){
+        return null;
+    }
+    
+    int idx = hmap.get(postorder[pei]);
+    int corsc = iei - idx;
+    
+    TreeNode node = new TreeNode(postorder[pei]);
+    
+    node.left = buildTree_(inorder,isi,idx-1,postorder,psi,pei-corsc-1,hmap);
+    node.right = buildTree_(inorder,idx+1,iei,postorder,pei-corsc,pei-1,hmap);
+    
+    return node;
+    
+  }
+
+
+  public static TreeNode buildTree(int[] inorder, int[] postorder) {
+
+    hmap = new HashMap<>();
+
+    for (int i = 0 ; i < inorder.length ; i++) {
+      hmap.put(inorder[i], i);
+    }
+
+    return buildTree_(inorder , 0 , inorder.length-1 , postorder , 0 , postorder.length - 1 , hmap);
+  }
