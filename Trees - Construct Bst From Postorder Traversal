@@ -1,0 +1,12 @@
+   static int idx ;
+    public static TreeNode bstFromPostorder(int[] postorder , int lr , int rr) {
+        
+        if(idx < 0 || lr > postorder[idx] || rr < postorder[idx]  )  return null;
+        
+        TreeNode node = new TreeNode(postorder[idx--]);
+        
+        node.right = bstFromPostorder(postorder,node.val,rr);
+        node.left = bstFromPostorder(postorder,lr,node.val);
+        
+        return node;
+    }
