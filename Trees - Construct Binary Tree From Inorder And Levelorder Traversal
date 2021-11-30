@@ -1,0 +1,56 @@
+  static HashMap<Integer, Integer> hmap;
+
+  public static TreeNode buildTree_(int[] inorder, int isi, int iei, int[] levelorder,  HashMap<Integer, Integer> hmap) {
+    if(levelorder.length == 0 || isi > iei){
+        return null;
+    }  
+      
+    int idx = hmap.get(levelorder[0]);
+    
+    HashSet<Integer> set = new HashSet<>();
+    
+    for(int i = isi ; i < idx ; i++){
+        set.add(inorder[i]);
+    }
+    
+    int[] loflt = new int[idx-isi];
+    int[] lofrt = new int[iei-idx];
+    
+    
+    int ls = 0;
+    int rs = 0;
+    
+    for(int j = 1 ; j < levelorder.length ; j++){
+        
+        int ele = levelorder[j];
+        
+        if(set.size() != 0 && set.contains(ele)){
+            loflt[ls++] = ele;
+            set.remove(ele);
+        }
+        else{
+            lofrt[rs++] = ele;
+        }
+    }
+    
+    TreeNode node = new TreeNode(levelorder[0]);
+    
+    node.left = buildTree_(inorder,isi,idx-1,loflt,hmap);
+    node.right = buildTree_(inorder,idx+1,iei,lofrt,hmap);
+    
+    return node;
+   
+   
+  }
+
+  public static TreeNode buildTree(int[] inorder, int[] levelOrder) {
+    hmap = new HashMap<>();
+
+    for (int i = 0 ; i < inorder.length ; i++) {
+      hmap.put(inorder[i], i);
+    }
+    
+    
+
+    return buildTree_(inorder, 0, inorder.length - 1, levelOrder,  hmap);
+  }
