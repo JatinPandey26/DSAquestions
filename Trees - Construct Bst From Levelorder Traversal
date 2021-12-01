@@ -1,0 +1,45 @@
+public static class pair {
+    TreeNode par;
+    int lr;
+    int rr;
+
+    pair(TreeNode par,int  lr, int rr) {
+      this.par = par;
+      this.lr = lr;
+      this.rr = rr;
+    }
+
+  }
+
+  public static TreeNode constructBSTFromLevelOrder(int[] LevelOrder) {
+
+    LinkedList<pair> que  = new LinkedList<>();
+    que.add(new pair(null, Integer.MIN_VALUE, Integer.MAX_VALUE));
+
+    int idx = 0;
+    TreeNode root = null;
+    while (que.size() > 0 && idx < LevelOrder.length){
+        pair p = que.removeFirst();
+        
+        int ele = LevelOrder[idx];
+        
+        if(ele < p.lr || ele > p.rr ) continue;
+        
+        TreeNode node = new TreeNode(ele);
+         idx++;
+        if(p.par == null ) {root = node;}
+        else{
+            TreeNode par = p.par;
+            if(ele >= par.val) {par.right = node;}
+            else{
+                par.left = node;
+            }
+        }
+        
+        que.addLast(new pair(node,p.lr,node.val));
+        que.addLast(new pair(node,node.val,p.rr));
+       
+    }
+
+      return root;
+  }
