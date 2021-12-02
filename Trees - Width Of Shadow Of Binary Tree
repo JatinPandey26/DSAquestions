@@ -1,0 +1,19 @@
+  static int[] ans = new int[2];
+   
+   public static int width_(TreeNode root, int hl) {
+       
+       if(root == null) return 0;
+       
+       if(hl < ans[0]) ans[0] = hl;
+       else if(hl > ans[1]) ans[1] = hl;
+       
+       width_(root.left,hl-1);
+       width_(root.right,hl+1);
+       
+       return ans[1] - ans[0] + 1 ;
+    }
+
+    public static int width(TreeNode root) {
+       
+       return width_(root,0);
+    }
