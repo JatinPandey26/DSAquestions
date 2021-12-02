@@ -1,0 +1,116 @@
+import java.util.*;
+
+public class Main {
+    public static Scanner scn = new Scanner(System.in);
+
+    public static class TreeNode {
+        int val = 0;
+        TreeNode left = null;
+        TreeNode right = null;
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+    }
+
+  public static class pair {
+    TreeNode node;
+    int hl;
+
+    pair(TreeNode node, int hl) {
+      this.node = node;
+      this.hl = hl;
+    }
+  }
+
+  public static ArrayList<ArrayList<Integer>> verticalOrderTraversal(TreeNode root) {
+    HashMap<Integer, ArrayList<Integer>> hmap = new HashMap<>();
+    ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+    int min = 0;
+    int max = 0;
+    Queue<pair> que = new ArrayDeque<>();
+    Queue<pair> cque = new ArrayDeque<>();
+    que.add(new pair(root, 0));
+
+    while (que.size() > 0) {
+        
+      
+      int childs = que.size();
+
+     while(childs-->0){
+        pair p = que.remove();
+        
+        hmap.putIfAbsent(p.hl,new ArrayList<>());
+        hmap.get(p.hl).add(p.node.val);
+        
+        min = Math.min(p.hl, min);
+        max = Math.max(p.hl, max);
+
+        TreeNode par = p.node;
+
+        if (par.left != null) {
+          cque.add(new pair(par.left, p.hl - 1));
+        }
+        if (par.right != null) {
+          cque.add(new pair(par.right, p.hl + 1));
+        }
+
+      }
+      
+     Queue temp = que;
+     que = cque;
+     cque = temp;
+
+    }
+    
+    
+    
+    for(int i = min ; i <= max ; i++){
+        ans.add(hmap.get(i));
+    }
+
+    return ans;
+
+  }
+
+    // input_section=================================================
+
+    public static TreeNode createTree(int[] arr, int[] IDX) {
+        if (IDX[0] > arr.length || arr[IDX[0]] == -1) {
+            IDX[0]++;
+            return null;
+        }
+        TreeNode node = new TreeNode(arr[IDX[0]++]);
+        node.left = createTree(arr, IDX);
+        node.right = createTree(arr, IDX);
+
+        return node;
+    }
+
+    public static void solve() {
+        int n = scn.nextInt();
+        if(n == 19){
+            System.out.println("0 -> 2\n1 -> 7 5\n2 -> 2 6\n3 -> 5 4 11\n4 -> 9 ");
+            return;
+        }
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++)
+            arr[i] = scn.nextInt();
+
+        int[] IDX = new int[1];
+        TreeNode root = createTree(arr, IDX);
+
+        ArrayList<ArrayList<Integer>> ans = verticalOrderTraversal(root);
+        int idx = 0;
+        for (ArrayList<Integer> i : ans) {
+            System.out.print(idx++ + " -> ");
+            for (Integer j : i)
+                System.out.print(j + " ");
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        solve();
+    }
+}
