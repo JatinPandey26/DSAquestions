@@ -1,0 +1,24 @@
+  public static ArrayList<Integer> leftView(TreeNode root) {
+        
+        Queue<TreeNode> que = new ArrayDeque<>();
+        ArrayList<Integer> ans = new ArrayList<>();
+        que.add(root);
+        
+        while(que.size() > 0){
+            
+            ans.add(que.peek().val);
+            int childs = que.size();
+            for(int i = 0 ; i < childs ; i++){
+                TreeNode node = que.remove();
+                
+                if(node.left != null) que.add(node.left);
+                if(node.right != null) que.add(node.right);
+
+            }
+            
+            
+        }
+        
+        return ans;
+
+    }
