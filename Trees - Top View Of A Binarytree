@@ -1,0 +1,48 @@
+ public static class pair {
+    TreeNode node;
+    int hl;
+
+    pair(TreeNode node, int hl) {
+      this.node = node;
+      this.hl = hl;
+    }
+  }
+
+  public static ArrayList<Integer> TopView(TreeNode root) {
+    HashMap<Integer, Integer> hmap = new HashMap<>();
+    ArrayList<Integer> ans = new ArrayList<>();
+    int min = 0;
+    int max = 0;
+    Queue<pair> que = new ArrayDeque<>();
+    que.add(new pair(root, 0));
+
+    while (que.size() > 0) {
+      int childs = que.size();
+
+      while (childs-- > 0) {
+        pair p = que.remove();
+
+       if(hmap.get(p.hl) == null){ hmap.put(p.hl, p.node.val);}
+
+        min = Math.min(p.hl, min);
+        max = Math.max(p.hl, max);
+
+        TreeNode par = p.node;
+
+        if (par.left != null) {
+          que.add(new pair(par.left, p.hl - 1));
+        }
+        if (par.right != null) {
+          que.add(new pair(par.right, p.hl + 1));
+        }
+
+      }
+
+    }
+
+    for (int i = min ; i <= max ; i++) {
+      ans.add(hmap.get(i));
+    }
+
+    return ans;
+  }
