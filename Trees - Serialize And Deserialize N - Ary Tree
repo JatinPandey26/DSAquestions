@@ -1,0 +1,43 @@
+  // Encodes a tree to a single string.
+  public static String serialize(Node root) {
+    String str = "";
+
+
+
+    str = root.val + ",";
+
+    
+      for (Node child : root.children) {
+        str += serialize(child);
+      }
+      str += "-1,";
+    
+
+    return str;
+
+  }
+
+  
+
+
+  // Decodes your encoded data to tree.
+  public static Node deserialize(String str) {
+    String[] arr = str.split(",");
+     LinkedList<Node> st = new LinkedList<>();
+     
+     for(int i = 0 ;  i < arr.length - 1 ; i++){
+        String s = arr[i];
+        
+        if(s.equals("-1")) {
+           Node node = st.removeFirst();
+           st.getFirst().children.add(node);
+        }
+        else{
+            Node node = new Node(Integer.parseInt(s));
+            st.addFirst(node);
+        }
+        
+     }
+     
+    return st.removeFirst();
+  }
