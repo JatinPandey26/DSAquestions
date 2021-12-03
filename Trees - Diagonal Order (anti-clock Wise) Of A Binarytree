@@ -1,0 +1,33 @@
+ public static ArrayList<ArrayList<Integer>> diagonalOrder(TreeNode root) {
+        
+    ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+    Queue<TreeNode> que = new ArrayDeque<>();
+    que.add(root);
+
+    while (que.size() > 0) {
+
+      int size = que.size();
+      ArrayList<Integer> smallAns = new ArrayList<>();
+      while (size-- > 0) {
+
+        TreeNode node = que.remove();
+
+        while (node != null) {
+
+          smallAns.add(node.val);
+
+          if (node.right != null) que.add(node.right);
+
+          node = node.left;
+
+        }
+
+
+      }
+
+      ans.add(smallAns);
+
+    }
+
+    return ans;
+    }
