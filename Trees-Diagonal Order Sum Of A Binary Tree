@@ -1,0 +1,28 @@
+  public static ArrayList<Integer> diagonalOrderSum(TreeNode root) {
+
+    ArrayList<Integer> ans = new ArrayList<>();
+    Queue<TreeNode> que = new ArrayDeque<>();
+    que.add(root);
+
+    while (que.size() > 0) {
+
+      int size = que.size();
+      int sum = 0;
+      while (size-- > 0) {
+        TreeNode node = que.remove();
+
+        while (node != null) {
+          sum += node.val;
+
+          if (node.left != null) que.add(node.left);
+
+          node = node.right;
+        }
+        
+      }
+      
+      ans.add(sum);
+
+    }
+    return ans;
+  }
