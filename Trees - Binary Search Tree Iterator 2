@@ -1,0 +1,27 @@
+ public static class BSTIterator {
+    Stack<TreeNode> st ;
+
+    public BSTIterator(TreeNode root) {
+      st  = new Stack<>();
+      addAllLeft(root);
+    }
+    
+    public void addAllLeft(TreeNode node){
+        while(node != null){
+            st.push(node);
+            node = node.left;
+        }
+    }
+
+    public int next() {
+    TreeNode top = st.pop();
+    
+    addAllLeft(top.right);
+    
+    return top.val;
+    }
+
+    public boolean hasNext() {
+     return st.size() != 0;
+    }
+  }
