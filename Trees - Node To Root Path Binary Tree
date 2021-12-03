@@ -1,0 +1,28 @@
+
+  public static ArrayList<TreeNode> nodeToRootPath(TreeNode node, int data) {
+
+    if (node == null) return null;
+
+    if (node.val == data) {
+      ArrayList<TreeNode> blist = new ArrayList<>();
+      blist.add(node);
+      return blist;
+    }
+
+    ArrayList<TreeNode> left = nodeToRootPath(node.left, data);
+
+    if (left != null) {
+      left.add(node);
+      return left;
+    }
+
+    ArrayList<TreeNode> right = nodeToRootPath(node.right, data);
+
+    if (right != null) {
+      right.add(node);
+      return right;
+    }
+
+    return null;
+
+  }
