@@ -1,0 +1,51 @@
+  static ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+
+  public static void burnTree(TreeNode root, TreeNode blocker, int time) {
+    if (root == null || root == blocker) return;
+
+    if (time == res.size()) {
+      ArrayList<Integer> list = new ArrayList<>();
+      list.add(root.val);
+      res.add(list);
+    }
+    else {
+      res.get(time).add(root.val);
+    }
+
+    burnTree(root.left, blocker, time + 1);
+    burnTree(root.right, blocker, time + 1);
+
+
+  }
+
+  public static int burningTree_(TreeNode root, int fireNode) {
+    if (root == null) return -1;
+
+    if (root.val == fireNode) {
+      burnTree(root, null, 0);
+      return 1;
+    }
+
+    int leftTime = burningTree_(root.left, fireNode);
+
+    if (leftTime != -1) {
+      burnTree(root, root.left, leftTime);
+      return leftTime + 1;
+    }
+
+    int rightTime = burningTree_(root.right, fireNode);
+
+    if (rightTime != -1) {
+      burnTree(root, root.right, rightTime);
+      return rightTime + 1;
+    }
+
+    return -1;
+
+  }
+
+
+  public static ArrayList<ArrayList<Integer>> burningTree(TreeNode root, int fireNode) {
+    burningTree_(root, fireNode);
+    return res;
+  }
