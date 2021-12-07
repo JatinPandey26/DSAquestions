@@ -1,0 +1,34 @@
+public static class Node {
+    int val = 0;
+    Node left = null;
+    Node right = null;
+
+    Node(int val) {
+      this.val = val;
+    }
+  }
+  
+  public static void addAllLeft(Node node , Stack<Node> st){
+    while(node != null){
+        st.add(node);
+        node = node.left;
+    }  
+  }
+
+  public static Node bToDLL(Node root) {
+    Stack<Node> st = new Stack<>();  
+    addAllLeft(root,st);
+    Node dummy = new Node(-1);
+    Node prev = dummy;
+    while(st.size() > 0){
+        
+        Node curr = st.pop();
+        prev.right = curr;
+        curr.left = prev;
+        
+        prev = prev.right;
+        addAllLeft(curr.right,st);
+    }
+    
+    return dummy.right;
+  }
