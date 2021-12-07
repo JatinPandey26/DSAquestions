@@ -1,0 +1,37 @@
+
+  public static class pair {
+    TreeNode node;
+    int idx;
+    pair(TreeNode node, int idx) {
+      this.node = node;
+      this.idx = idx;
+    }
+  }
+
+  public static int widthOfBinaryTree(TreeNode root) {
+    Queue<pair> que = new ArrayDeque<>();
+    que.add(new pair(root, 0));
+    int Max_width = 0;
+
+    while (que.size() > 0) {
+
+      int size = que.size();
+      int minIdx = Integer.MAX_VALUE;
+      int maxIdx = 0;
+      while (size-- > 0) {
+        pair top = que.remove();
+        minIdx = Math.min(minIdx, top.idx);
+        maxIdx = Math.max(maxIdx, top.idx);
+
+        TreeNode node = top.node;
+        if (node.left != null) que.add(new pair(node.left, 2*top.idx + 1));
+        if (node.right != null) que.add(new pair(node.right, 2*top.idx + 2));
+      }
+
+      Max_width = Math.max(Max_width, maxIdx - minIdx + 1);
+
+    }
+
+    return Max_width;
+
+  }
