@@ -1,0 +1,42 @@
+public static Node midNode(Node head) {
+    if (head == null || head.right == null) {
+      return head;
+    }
+    Node fast = head;
+    Node slow = head;
+
+    while (fast.right != null && fast.right.right != null) {
+      fast = fast.right.right;
+      slow = slow.right;
+    }
+
+    return slow;
+
+
+  }
+
+  // left : prev, right : next
+  public static Node SortedDLLToBST(Node head) {
+
+    if (head == null || head.right == null) {
+      return head;
+    }
+
+    Node mid =   midNode(head);
+    Node prev = mid.left;
+    Node forw = mid.right;
+
+    mid.right = mid.left = forw.left = null;
+
+    if (prev != null) prev.right = null;
+
+    Node leftHead = prev != null ? head : null;
+    Node rightHead = forw;
+
+    mid.left = SortedDLLToBST(leftHead);
+    mid.right = SortedDLLToBST(rightHead);
+
+
+
+    return mid;
+  }
