@@ -1,0 +1,32 @@
+
+  public static void pathSum_(ArrayList<ArrayList<Integer>> res, ArrayList<Integer> smallAns, TreeNode root, int targetSum) {
+
+    if (root == null) return ;
+
+    if (root.right == null && root.left == null) {
+
+      if (targetSum == root.val) {
+          ArrayList<Integer> base = new ArrayList<>(smallAns);
+        base.add(root.val);
+        res.add(base);
+      }
+
+      return;
+
+    }
+
+    smallAns.add(root.val);
+
+    pathSum_(res, smallAns, root.left, targetSum - root.val);
+    pathSum_(res, smallAns, root.right, targetSum - root.val);
+
+    smallAns.remove(smallAns.size() - 1);
+
+  }
+
+  public static ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int targetSum) {
+
+    ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+    pathSum_(res,new ArrayList<>() , root, targetSum);
+    return res;
+  }
