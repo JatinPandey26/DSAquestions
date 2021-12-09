@@ -1,0 +1,14 @@
+ static int dia = 0;
+  
+  public static int diameterOfBinaryTree(TreeNode root) {
+    
+    if(root == null) return -1;
+    
+    int lh = diameterOfBinaryTree(root.left);
+    int rh = diameterOfBinaryTree(root.right);
+    
+    dia = Math.max(dia,rh+lh+2);
+    
+      
+    return Math.max(lh,rh)+1;
+  }
