@@ -1,0 +1,41 @@
+ public static class pair{
+      int LtoLpathSum = Integer.MIN_VALUE;
+      int LtoNpathSum = Integer.MIN_VALUE;
+      
+  }
+  
+   public static pair maxPathSum_(TreeNode root) {
+    pair myAns = new pair(); 
+    
+    if(root == null){
+        return myAns;
+    }
+    
+    if(root.left == null && root.right == null){
+        myAns.LtoNpathSum = root.val;
+        return myAns;
+    }
+    
+    pair lp = maxPathSum_(root.left);
+    pair rp  = maxPathSum_(root.right);
+    
+    myAns.LtoLpathSum = Math.max(lp.LtoLpathSum,rp.LtoLpathSum);
+    
+    if(root.left != null && root.right != null){
+        myAns.LtoLpathSum = Math.max(myAns.LtoLpathSum,lp.LtoNpathSum + root.val + rp.LtoNpathSum);
+    }
+    
+    myAns.LtoNpathSum = Math.max(lp.LtoNpathSum,rp.LtoNpathSum) + root.val;
+      
+    return myAns;
+  }
+  
+
+  public static int maxPathSum(TreeNode root) {
+      
+    pair myAns = maxPathSum_(root); 
+    
+    
+      
+    return myAns.LtoLpathSum;
+  }
