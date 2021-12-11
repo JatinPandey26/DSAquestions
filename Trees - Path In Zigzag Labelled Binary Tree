@@ -1,0 +1,25 @@
+    public List<Integer> pathInZigZagTree(int n) {
+        
+        int lvlc = 1;
+        
+        while(n > 2*lvlc-1){
+            lvlc *= 2;
+        }
+        
+        List<Integer> path = new ArrayList<>();
+        
+        while(n > 1){
+            path.add(n);
+            int comp = 3*lvlc - n - 1;
+            n = comp/2;
+            lvlc /= 2;
+        }
+        
+        path.add(1);
+        
+    Collections.reverse(path);
+        
+        return path;
+        
+        
+    }
