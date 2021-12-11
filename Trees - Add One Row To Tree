@@ -1,0 +1,33 @@
+ public TreeNode addOneRow(TreeNode root, int val, int depth) {
+       if(depth == 1){
+           TreeNode node = new TreeNode(val,root,null);
+           return node;
+       } 
+        
+       Queue<TreeNode> que = new ArrayDeque<>();
+       que.add(root);
+       
+       while(depth-->2){
+           int size = que.size();
+           while(size-->0){
+               TreeNode node = que.remove();
+               
+               if(node.left != null) que.add(node.left);
+               if(node.right != null) que.add(node.right);
+           }
+           
+       }
+        
+        while(que.size() > 0){
+            TreeNode node = que.remove();
+            TreeNode nleft = new TreeNode(val);
+            nleft.left = node.left;
+            node.left = nleft;
+            TreeNode nright = new TreeNode(val);
+            nright.right = node.right;
+            node.right = nright;
+            
+        
+    }
+        return root;
+}
