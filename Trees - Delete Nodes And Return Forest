@@ -1,0 +1,35 @@
+  public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+        HashSet<Integer> set = new HashSet<>();
+        for(int e : to_delete){
+            set.add(e);
+        }
+        List<TreeNode> ans = new ArrayList<>();
+        TreeNode node = delNodes_(root,set,ans);
+        if(node != null){
+        ans.add(node);
+        }
+        return ans;
+    }
+    
+    public static TreeNode delNodes_(TreeNode root,HashSet<Integer> set,List<TreeNode> ans){
+        if(root == null) return root;
+        root.left = delNodes_(root.left,set,ans);
+        root.right = delNodes_(root.right,set,ans);
+        
+        if(set.contains(root.val)){
+            
+            if(root.left != null){
+                ans.add(root.left);   
+            }
+            
+              if(root.right != null){
+                ans.add(root.right);   
+            }
+            
+            return null;
+        }
+        
+        return root;
+        
+        
+    }
