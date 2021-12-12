@@ -1,0 +1,23 @@
+  public int goodNodes(TreeNode root) {
+     
+   return goodNodes_(root,Integer.MIN_VALUE);
+    }
+    
+     public static int goodNodes_(TreeNode root, int max) {
+             int ans = 0;
+         
+         if(root == null) return ans;
+        
+        max = Math.max(max,root.val);
+        
+        
+        ans += goodNodes_(root.left,max);
+        ans += goodNodes_(root.right,max);
+        
+        if(root.val >= max){
+            ans += 1;
+        }
+        
+        return ans;
+           
+     }
