@@ -1,0 +1,49 @@
+class CBTInserter {
+    TreeNode head = null;
+    TreeNode curr = null;
+    Queue<TreeNode> que = new ArrayDeque<>();
+    public CBTInserter(TreeNode root) {
+        head = root;
+        
+        que.add(root);
+        while(true){
+            TreeNode node = que.peek();
+            if(node.left != null){
+                que.add(node.left);
+            }
+             else{
+                curr = node;
+                break;
+            }
+             if(node.right != null){
+                que.add(node.right);
+            }
+            else{
+                curr = node;
+                break;
+            }
+            que.remove();
+        }
+    }
+    
+    public int insert(int val) {
+        int rv = curr.val;
+       if(curr.left == null){
+           TreeNode node = new TreeNode(val);
+           curr.left = node;
+           que.add(node);
+       } 
+       else if(curr.right == null){
+         TreeNode node = new TreeNode(val);
+           curr.right = node; 
+           que.add(node);
+           que.remove();
+           curr = que.peek();
+       }
+        return rv;
+    }
+    
+    public TreeNode get_root() {
+      return head;  
+    }
+}
