@@ -1,0 +1,47 @@
+import java.util.*;
+
+public class Main {
+ 
+  public static boolean isPrime(int n){
+    for(int i = 2 ; i*i <= n ;i++){
+      if(n%i == 0) return false;
+    }
+    return true;
+  }
+
+  public static int DigitSum(int n){
+    int sum = 0;
+    while(n>0){
+      sum += n % 10;
+      n /= 10;
+    }
+    return sum;
+  }
+
+  public static int[] countDigitPrimes(){
+    int arr[] = new int[1000001];
+    for(int i = 1 ; i <= 1000000 ; i++){
+      arr[i] = arr[i-1];
+    if(isPrime(i) && isPrime(DigitSum(i))){
+      arr[i] += 1;
+    }
+    }
+    return arr;
+  }
+  public static void main(String[] args) {
+    
+    Scanner sn = new Scanner(System.in);
+    int primeCount[] = countDigitPrimes();
+    
+    int tc = sn.nextInt();
+    while(tc-->0){
+
+    int strt = sn.nextInt();
+    int end = sn.nextInt();
+
+    System.out.println(primeCount[end] - (strt > 0 ? primeCount[strt-1] : 0) + " ");
+
+    }
+
+  }
+}
