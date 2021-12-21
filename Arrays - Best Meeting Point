@@ -1,0 +1,34 @@
+  public static int minTotalDistance(int[][] arr) {
+        ArrayList<Integer> xCord = new ArrayList<>();
+        
+        for(int i = 0 ; i < arr.length ; i++){
+            for(int j = 0 ; j < arr[0].length ; j++){
+                if(arr[i][j] == 1)xCord.add(i);
+            }
+        }
+        
+        int mid = xCord.size() / 2;
+        int x = xCord.get(mid);
+        
+        ArrayList<Integer> yCord = new ArrayList<>();
+        for(int j = 0 ; j < arr[0].length ; j++){
+            for(int i = 0 ; i < arr.length ; i++){
+                if(arr[i][j] == 1)yCord.add(j);
+            }
+        }
+        
+        mid = yCord.size() / 2;
+        int y = yCord.get(mid);
+        
+        int distance = 0;
+        
+        for(int d : xCord){
+            distance += Math.abs(x-d);
+        }
+        for(int d : yCord){
+            distance += Math.abs(y-d);
+        }
+        
+        return distance;
+        
+    }
