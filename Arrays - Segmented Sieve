@@ -1,0 +1,50 @@
+ public static ArrayList<Integer> printPrimeUsingSieve(int n) {
+    boolean[] isPrime = new boolean[n + 1];
+
+    Arrays.fill(isPrime, true);
+
+    for (int i = 2 ; i * i <= n ; i++) {
+      if (isPrime[i] == true) {
+
+        for (int j = i + i ; j <= n ; j += i) {
+          isPrime[j] = false;
+        }
+
+      }
+    }
+    ArrayList<Integer> primes = new ArrayList<>();
+    for(int i = 2 ; i < isPrime.length ; i++){
+        
+        if(isPrime[i]) primes.add(i);
+        
+        
+        
+    }
+    
+  return primes;
+  }
+  public static void segmentedSieveAlgo(int a, int b) {
+    boolean[] segmentedPrime = new boolean[b-a+1];
+    int root = (int)Math.sqrt(b);
+    ArrayList<Integer> Primes = printPrimeUsingSieve(root);
+    
+    for(int prime : Primes){
+       int multiplier = (int)Math.ceil((a*1.0) / prime);
+        if(multiplier == 1) multiplier++;
+        int idx = multiplier * prime - a;
+        
+        for(int j = idx ; j < segmentedPrime.length ; j+= prime){
+            
+                segmentedPrime[j] = true;
+            
+        }
+    }
+    
+    for(int i = 0 ; i < segmentedPrime.length ; i++){
+        if(segmentedPrime[i] == false && i+a != 1){
+            System.out.println(i+a);
+        }
+    }
+    
+    
+  }
