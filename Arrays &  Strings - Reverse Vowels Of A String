@@ -1,0 +1,35 @@
+public static String reverseVowels(String s) {
+    int i = 0;
+    int j = s.length()-1;
+    char[] ch = s.toCharArray();
+    Set<Character> set = new HashSet<>();
+    set.add('a');
+    set.add('e');
+    set.add('i');
+    set.add('o');
+    set.add('u');
+    set.add('A');
+    set.add('E');
+    set.add('I');
+    set.add('O');
+    set.add('U');
+
+    while(i < j){
+        if(set.contains(ch[i]) && set.contains(ch[j])){
+          char temp =  ch[i];
+          ch[i] = ch[j];
+          ch[j] = temp;
+          i++;
+          j--;
+        }
+        else{
+            if(set.contains(ch[i]) == false) i++;
+            if(set.contains(ch[j]) == false) j--;
+        }
+    }
+    String ans = "";
+    for(char c : ch){
+        ans += c;
+    }
+    return ans;
+  }
