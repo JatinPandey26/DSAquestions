@@ -1,0 +1,45 @@
+public static String multiplication(String num1, String num2) {
+    int l1 = num1.length();
+    int l2 = num2.length();
+    
+    int[] ans = new int[l1+l2];
+    int i = l2 - 1;
+    int pf = 0;
+    
+    while(i >= 0){
+    int digitI = num2.charAt(i)-'0';
+    int carry = 0;
+    i--;
+    int j = l1-1;
+    int k = ans.length - 1 - pf;
+    
+    while(j >= 0 || carry != 0){
+        int digitJ = j >= 0 ? num1.charAt(j) -'0' : 0;
+        j--;
+        
+        int mul = digitJ*digitI + carry + ans[k];
+        ans[k] = mul%10;
+        carry = mul/10;
+        k--;
+    }
+    
+    pf++;
+    
+    }
+   String res = "";
+   for(int x : ans){
+       res += x;
+   }
+   
+   while(res.length() > 0){
+       if(res.charAt(0) == '0'){
+           res = res.substring(1);
+       }
+       else break;
+   }
+   
+   if(res.length() == 0) res = "0";
+   
+   return res;
+   
+  }
