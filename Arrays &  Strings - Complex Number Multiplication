@@ -1,0 +1,46 @@
+  public static String complexNumberMultiply(String num1, String num2) {
+    int a = 0;
+    int b = 0;
+    int c = 0;
+    int d = 0;
+
+    int i = 0;
+
+    while (i < num1.length()) {
+      if (num1.charAt(i) == '+') {
+
+        String fh = num1.substring(0, i);
+        String sh = num1.substring(i + 1,num1.length()-1);
+        
+
+        a = Integer.valueOf(fh);
+        b = Integer.valueOf(sh);
+        break;
+      }
+      else {
+        i++;
+      }
+    }
+    i = 0;
+    while (i < num2.length()) {
+      if (num2.charAt(i) == '+') {
+
+        String fh = num2.substring(0, i);
+        String sh = num2.substring(i + 1,num2.length()-1);
+
+        c = Integer.valueOf(fh);
+        d = Integer.valueOf(sh);
+        break;
+      }
+      else {
+        i++;
+      }
+    }
+    
+    int real = a*c - d*b;
+    int imaginary = d*a + b*c;
+    
+    String ans = real + "+" + imaginary + "i";
+    
+    return ans;
+  }
