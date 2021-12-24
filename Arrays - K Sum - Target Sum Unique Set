@@ -1,0 +1,63 @@
+public static List<List<Integer>> kSum(int[] arr, int target, int k ) {
+    Arrays.sort(arr);
+    return  kSumHelper(arr , target , k , 0);
+  }
+  
+   public static List<List<Integer>> kSumHelper(int[] arr, int target, int k , int start ) {
+     int n = arr.length;
+    if(k == 2){
+        return twoSum(arr,target,start,n-1);
+    }  
+      
+    
+    List<List<Integer>> ans = new ArrayList<>();
+    
+    if(n-k < 0) return ans;
+    
+    for(int i = start ; i <= n-k ; i++){
+        if(i != start && arr[i] == arr[i-1]) continue;
+        int val1 = arr[i];
+        int targ = target - val1;
+        
+        List<List<Integer>> smallAns = kSumHelper(arr , targ , k-1 , i+1);
+        
+        for(List<Integer> list : smallAns){
+            list.add(val1);
+            ans.add(list);
+        }
+        
+    }
+    return ans;
+  }
+
+public static List<List<Integer>> twoSum(int[] arr, int target, int start,int end) {
+    List<List<Integer>> ans = new ArrayList<>();
+
+    int i = start;
+    int j = end;
+
+    while (i < j) {
+      int sum = arr[i] + arr[j];
+
+      if (sum == target) {
+        List<Integer> smallAns = new ArrayList<>();
+        smallAns.add(arr[i]);
+        smallAns.add(arr[j]);
+        ans.add(smallAns);
+        i++;
+        j--;
+
+        while (i < j && arr[i] == arr[i - 1]) i++;
+        while (i < j && arr[j] == arr[j + 1]) j--;
+      }
+      else if (sum < target) {
+        i++;
+        while (i < j && arr[i] == arr[i - 1]) i++;
+      }
+      else {
+        j--;
+        while (i < j && arr[j] == arr[j + 1]) j--;
+      }
+    }
+    return ans;
+  }
