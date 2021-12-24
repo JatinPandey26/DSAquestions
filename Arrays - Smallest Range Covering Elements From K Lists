@@ -1,0 +1,38 @@
+  public int[] smallestRange(List<List<Integer>> nums) {
+    int res[] = {-100000, 100000};
+    int k = nums.size();
+    int max = Integer.MAX_VALUE();
+
+    PriorityQueue<int[]> pq = new PriorityQueue<>((a, b)->(a[0] - b[0]));
+
+    for (int i = 0 ; i < k ; i++) {
+      List<Integer> list = nums.get(i);
+      int[] tba = {list.get(0), 0, i};
+      max = Math.max(max, list.get(0));
+      pq.add(tba);
+    }
+
+    while (pq.size() > 0) {
+      int[] min = pq.poll();
+
+      if (max - min[0] < res[1] - res[0]) {
+        res[0] = min[0];
+        res[1] = max;
+      }
+
+      int nextIdx = min[1] + 1;
+
+      if (nums.get(min[2]).size() > nextIdx) {
+        int numtba = nums.get(min[2]).get(nextIdx);
+        int[] tba = {numtba, nextIdx, min[2]};
+        max = Math.max(numtba, max);
+        pq.add(tba);
+      }
+      else {
+        break;
+      }
+
+    }
+
+    return res;
+  }
