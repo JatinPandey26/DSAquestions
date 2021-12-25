@@ -1,0 +1,9 @@
+  public static ArrayList<Integer> pascalRow(int r) {
+    int num = 1;
+    ArrayList<Integer> res = new ArrayList<>();
+    for(int c = 0 ; c <= r ; c++){
+        res.add(num);
+        num = num * (r-c)/(c+1);
+    }
+    return res;
+  }
