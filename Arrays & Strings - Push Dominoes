@@ -1,0 +1,62 @@
+ public static String pushDominoes(String str) {
+    Character[] arr = new Character[str.length() + 2];
+
+    arr[0] = 'L';
+    arr[arr.length - 1] = 'R';
+
+    for (int k = 1 ; k < arr.length-1; k++) {
+      arr[k] = str.charAt(k - 1);
+    }
+
+    int i = 0;
+    int j = 1;
+
+    while (j < arr.length) {
+
+      while (arr[j] == '.') j++;
+
+      if (arr[i] == 'L' && arr[j] == 'R') {
+        // Nothing  to do
+      }
+
+      if (arr[i] == 'R' && arr[j] == 'R') {
+        for (int k = i + 1 ; k < j ; k++) {
+          arr[k] = 'R';
+        }
+      }
+
+      if (arr[i] == 'L' && arr[j] == 'L') {
+        for (int k = i + 1 ; k < j ; k++) {
+          arr[k] = 'L';
+        }
+      }
+
+      if (arr[i] == 'R' && arr[j] == 'L') {
+        int diff = j-i;
+        int mid = (i+j) / 2;
+        if(diff % 2 == 0){
+          for(int k = i+1 ; k < mid ; k++){
+            arr[k] = 'R';  
+          }
+          for(int k = mid+1 ; k < j ; k++){
+            arr[k] = 'L';   
+          }
+        }
+        else{
+           for(int k = i+1 ; k <= mid ; k++){
+            arr[k] = 'R';  
+          }
+          for(int k = mid+1 ; k < j ; k++){
+            arr[k] = 'L';   
+          } 
+        }
+        
+      }
+      i = j;
+      j++;
+    }
+    String ans = "";
+    for (Character ch : arr) ans += ch;
+
+    return ans.substring(1, ans.length() - 1);
+  }
