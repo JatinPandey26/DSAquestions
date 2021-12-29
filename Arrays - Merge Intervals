@@ -1,0 +1,34 @@
+  public static int[][] mergeIntervals(int Intervals[][]) {
+     
+    Arrays.sort(Intervals, (a, b) -> Integer.compare(a[0], b[0]));
+
+    ArrayList<int[]> ans = new ArrayList<>();
+    if(Intervals.length == 0) return ans.toArray(new int[ans.size()][]); 
+
+    int start = Intervals[0][0];
+    int end = Intervals[0][1];
+
+    for (int[] Interval : Intervals) {
+
+      if (end > Interval[0]) {
+        // can merge
+        end = Math.max(end, Interval[1]);
+      }
+      else {
+        int[] meeting = new int[2];
+        meeting[0] = start;
+        meeting[1] = end;
+        ans.add(meeting);
+        start = Interval[0];
+        end = Interval[1];
+      }
+
+    }
+    int[] meeting = new int[2];
+    meeting[0] = start;
+    meeting[1] = end;
+    ans.add(meeting);
+
+
+    return ans.toArray(new int[ans.size()][]);
+  }
