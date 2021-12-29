@@ -1,0 +1,27 @@
+  public static int findPlatform(int[] arr, int[] dep) {
+    Arrays.sort(arr);
+    Arrays.sort(dep);
+    
+    int i = 0;
+    int j = 0;
+    int trains = 0;
+    int platforms = 0;
+    while(i < arr.length){
+        
+        if(arr[i] < dep[j]){
+            trains++;
+            i++;
+        }
+        else{
+            platforms = Math.max(trains , platforms);
+            trains--;
+            j++;
+        }
+        
+    }
+    
+    platforms = Math.max(trains , platforms);
+    
+    return platforms;
+    
+  }
