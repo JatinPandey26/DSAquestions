@@ -1,0 +1,57 @@
+  public int[] findBall(int[][] grid) {
+      int n = grid.length;
+      int[] balls = new int[grid[0].length]; 
+        Arrays.fill(balls,-1);
+      for(int b = 0 ; b < balls.length ; b++){
+          
+          int col = b;
+          for(int i = 0 ; i < n ; i++){
+            if(grid[i][col] == 1){
+               if(canGoDown(grid,i,col)){
+                  col++; 
+               } 
+                else{
+                    balls[b] = -1;
+                    break;
+                }
+            }  
+            else{
+               if(canGoDown(grid,i,col)){
+                  col--; 
+               } 
+                else{ 
+                    balls[b] = -1;
+                    break;
+                } 
+            }
+            balls[b] = col;                
+
+          }
+           
+      }
+        
+        return balls;
+        
+    }
+    
+    public static boolean canGoDown(int[][] grid , int row , int col ){
+        
+        if(grid[row][col] == 1){
+            
+            if(col == grid[0].length-1) return false;
+            
+            if(grid[row][col+1] == -1) return false;
+            
+        }
+        
+        if(grid[row][col] == -1){
+            
+            if(col == 0) return false;
+            
+            if(grid[row][col-1] == 1) return false;
+            
+        }
+        
+        return true;
+        
+    }
