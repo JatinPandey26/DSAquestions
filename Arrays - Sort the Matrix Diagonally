@@ -1,0 +1,35 @@
+    public int[][] diagonalSort(int[][] mat) {
+       for(int col = 0 , row = 0 ; col < mat[0].length ; col++){
+           countSort(mat,row,col);
+       } 
+       
+       for(int row = 1 , col = 0 ; row < mat.length ; row++){
+           countSort(mat,row,col);
+       } 
+        return mat;
+    }
+    
+    public static void countSort(int[][] mat , int row , int col){
+    
+        int[] count = new int[101];
+        
+        for(int i = row , j = col ; i < mat.length && j < mat[0].length ; i++, j++){
+            count[mat[i][j]]++;
+        }
+        
+        int r = row;
+        int c = col;
+        
+        for(int i = 0 ; i < count.length && r < mat.length ; i+= 0){
+            if(count[i] != 0){
+                mat[r][c] = i;
+                r++;
+                c++;
+                count[i]--;
+            }
+            else{
+                i++;
+            }
+        }
+        
+    }
