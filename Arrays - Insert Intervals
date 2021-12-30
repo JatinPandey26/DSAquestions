@@ -1,0 +1,60 @@
+ public static int[][] insertIntervals(int intervalList[][], int newInterval[]) {
+    Arrays.sort(intervalList, (a, b)-> Integer.compare(a[0], b[0]));
+    ArrayList<int[]> ans = new ArrayList<>();
+
+    int idx = 0;
+
+    while (idx < intervalList.length) {
+
+      if (intervalList[idx][1] < newInterval[0]) {
+        ans.add(intervalList[idx]);
+        idx++;
+      }
+      else break;
+    }
+
+    ans.add(newInterval);
+
+    while (idx < intervalList.length) {
+
+      int[] currInterval = intervalList[idx];
+      int[] lastInterval = ans.get(ans.size() - 1);
+
+      if (isOverlap(currInterval, lastInterval) || isOverlap(lastInterval, currInterval)) {
+        mergeIntervals(currInterval, ans);
+      }
+      else {
+        ans.add(currInterval);
+      }
+      idx++;
+    }
+    return ans.toArray(new int[ans.size()][]);
+  }
+
+  public static void mergeIntervals(int[] currInterval, ArrayList<int[]> ans) {
+
+
+    int[] lastInterval = ans.get(ans.size() - 1);
+
+    if (isOverlap(currInterval, lastInterval) || isOverlap(lastInterval, currInterval)) {
+      int start = Math.min(currInterval[0], lastInterval[0]);
+      int end = Math.max(currInterval[1], lastInterval[1]);
+
+      currInterval[0] = start;
+      currInterval[1] = end;
+      ans.remove(ans.size() - 1);
+    }
+
+
+
+    ans.add(currInterval);
+
+
+  }
+
+  public static boolean isOverlap(int[] interval1, int[] interval2) {
+    if ((interval1[0] >= interval2[0] && interval1[1] <= interval2[1]) || (interval1[1] >= interval2[0] && interval1[1] <= interval2[1])) {
+      return true;
+    }
+    return false;
+  }
