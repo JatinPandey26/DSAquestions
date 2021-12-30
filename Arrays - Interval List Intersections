@@ -1,0 +1,32 @@
+ public static int[][] intersection(int intervalList1[][], int intervalList2[][]) {
+    ArrayList<int[]> ans = new ArrayList<>();
+
+    int i = 0;
+    int j = 0;
+
+    while (i < intervalList1.length && j < intervalList2.length) {
+
+      if ((intervalList1[i][0] <= intervalList2[j][1] && intervalList1[i][0] >= intervalList2[j][0] ) || (intervalList1[i][1] >= intervalList2[j][0] && intervalList1[i][0] <= intervalList2[j][0])) {
+
+        int[] tbp = new int[2];
+        tbp[0] = Math.max(intervalList1[i][0], intervalList2[j][0]);
+        tbp[1] = Math.min(intervalList1[i][1], intervalList2[j][1]);
+        ans.add(tbp);
+
+      }
+
+      if (intervalList1[i][0] < intervalList2[j][0]) i++;
+
+      else if (intervalList1[i][0] > intervalList2[j][0]) j++;
+
+      else {
+
+        if (intervalList1[i][1] < intervalList2[j][1]) i++;
+
+        else if (intervalList1[i][1] > intervalList2[j][1]) j++;
+
+      }
+
+    }
+    return ans.toArray(new int[ans.size()][]);
+  }
