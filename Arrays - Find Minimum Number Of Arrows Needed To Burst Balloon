@@ -1,0 +1,20 @@
+  public static int minArrows(int coordinates[][]) {
+    if(coordinates.length == 0) return 0;  
+    Arrays.sort(coordinates, (a, b)->Integer.compare(a[0], b[0]));
+    int arrows = 1;
+   
+    int end = coordinates[0][1];
+
+    for (int i = 1 ; i < coordinates.length ; i++) {
+      if (end >= coordinates[i][0]) {
+        end = Math.min(end, coordinates[i][1]);
+      }
+      else {
+        arrows++;
+        end = coordinates[i][1];
+      }
+    }
+
+    return arrows;
+
+  }
