@@ -1,0 +1,24 @@
+public static ArrayList<Integer> topKFrequent(int n, int[] nums, int k) {
+ 	 
+ 	 HashMap<Integer,Integer> hmap = new HashMap<>();
+ 	 
+ 	 for(int i : nums){
+ 	     hmap.put(i,hmap.getOrDefault(i,0) + 1);
+ 	 }
+ 	 
+ 	 PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> Integer.compare(hmap.get(a) , hmap.get(b)) );
+ 	 
+ 	 for(int m : hmap.keySet()){
+ 	     pq.add(m);
+ 	     
+ 	     if(pq.size() > k) pq.poll();
+ 	     
+ 	 }
+ 	 
+ 	 ArrayList<Integer> ans = new ArrayList<>();
+ 	 
+ 	 while(pq.size() > 0){
+ 	     ans.add(pq.poll());
+ 	 }
+ return ans;
+ 	 }
