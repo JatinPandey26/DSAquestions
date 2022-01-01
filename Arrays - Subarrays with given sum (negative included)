@@ -1,0 +1,23 @@
+    public static int subArraySum(int[] arr, int n, int sum)
+    { 
+        int currSum = 0;
+        int ans = 0;
+        HashMap<Integer,Integer> hmap = new HashMap<>();
+        for(int i = 0 ; i < n ; i++){
+            currSum += arr[i];
+            
+            if(currSum == sum){
+              ans++;  
+            }
+            
+            if(hmap.containsKey(currSum - sum)){
+                ans += hmap.get(currSum-sum);
+            }
+            
+            hmap.put(currSum,hmap.getOrDefault(currSum,0)+1);
+            
+        }
+        
+        return ans;
+        
+    }
