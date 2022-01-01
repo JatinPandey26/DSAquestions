@@ -1,0 +1,44 @@
+ static int circularSubarraySum(int a[], int n) {
+        
+        // Your code here
+        
+        return Math.max(kadane(a) , reverseKadane(a));
+        
+    }
+    
+    public static int reverseKadane(int[] arr){
+        int total = 0;
+        
+        for(int i : arr) total += i;
+        
+        for(int i = 0 ; i < arr.length ; i++){
+        arr[i] = -arr[i];    
+        } 
+        
+        
+        int k = kadane(arr);
+        
+        if(total == -k) return total;
+        
+        return total + k;
+        
+    }
+    
+    public static int kadane(int[] arr){
+        
+        int currSum = arr[0];
+        int maxSum = arr[0];
+        
+        for(int i = 1 ; i < arr.length ; i++){
+            if(currSum >= 0){
+                currSum += arr[i];
+            }
+            else{
+                currSum = arr[i];
+            }
+            maxSum = Math.max(currSum,maxSum);
+        }
+        
+     return maxSum;   
+    } 
+    
