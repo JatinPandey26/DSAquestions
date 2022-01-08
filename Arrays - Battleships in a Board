@@ -1,0 +1,60 @@
+ public int countBattleships(char[][] board) {
+        int count = 0;
+        for(int i = 0 ; i < board.length ; i++){
+            for(int j = 0 ; j < board[0].length ; j++){
+                if(board[i][j] == 'X'){
+                    
+                   
+                 boolean hor =  getXvertical(board,i,j);   
+                 boolean ver =  getXhorizontal(board,i,j);
+                         
+                 if(hor || ver){
+                     count++;
+                 }   
+                 else if(hor) count++;   
+                 else if(ver) count++;
+                  
+                    
+                }
+            }
+        }
+      return count;  
+    }
+    
+    public static boolean getXvertical(char[][] board , int i , int j){
+         board[i][j] = '?';
+        while(i < board.length-1){
+           
+            if(board[i+1][j] == 'X'){ 
+                i++;
+                 board[i][j] = '?';
+            }
+            else break;
+            
+            if(j > 0 && board[i][j-1] == 'X') return false;
+            
+            if(j < board[0].length - 1 && board[i][j+1] == 'X') return false;
+        }
+        
+        return true;
+        
+    }
+    
+       public static boolean getXhorizontal(char[][] board , int i , int j){
+         board[i][j] = '?';
+        while(j < board[0].length-1){
+            board[i][j] = '?';
+            if(board[i][j+1] == 'X'){ 
+                j++;
+                board[i][j] = '?';
+            }
+            else break;
+            
+            if(i > 0 && board[i-1][j] == 'X') return false;
+            
+            if(i < board.length - 1 && board[i+1][j] == 'X') return false;
+        }
+        
+        return true;
+        
+    }
