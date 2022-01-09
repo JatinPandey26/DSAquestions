@@ -1,0 +1,57 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	static int max = 0;
+	public static int getMaxGold(int[][] arr ,int r , int c , boolean[][] visited  ){
+		//write your code here
+		if(r < 0 || c < 0 || r >= arr.length || c >= arr[0].length || visited[r][c] == true || arr[r][c] == 0 ){
+		    return 0;
+		}
+		int score = arr[r][c];
+		visited[r][c] = true;
+		// System.out.println("yes");/
+		int right = getMaxGold(arr,r+1,c,visited);
+		int left = getMaxGold(arr,r-1,c,visited);
+		int down = getMaxGold(arr,r,c+1,visited);
+		int up = getMaxGold(arr,r,c-1,visited);
+		
+		visited[r][c] = false;
+		
+		return score + Math.max(Math.max(left,right) , Math.max(up,down));
+	}
+	
+	
+	
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		ArrayList<int[]> list = new ArrayList<>();
+  while(scn.hasNext()){
+    String n = scn.nextLine();
+   
+    String[] charArr = n.split(" ");
+    
+    int[] arr = new int[charArr.length];
+
+    for(int i = 0 ; i < arr.length ; i++){
+     arr[i] = Integer.valueOf(charArr[i]);
+    }
+ 
+    list.add(arr);
+   
+    }
+       
+    int[][] mine = list.toArray(new int[list.size()][]);
+		boolean[][] visited = new boolean[mine.length][mine[0].length];
+		for(int i = 0; i < mine.length; i++){
+			for(int j = 0 ; j  < mine[0].length; j++){
+		if(visited[i][j] == false && mine[i][j] != 0 )	{ 
+		    int score = getMaxGold(mine,i,j,visited);
+			 max = Math.max(max,score);}
+			}
+		}
+		
+		System.out.println(max);
+	}
+		
+}
