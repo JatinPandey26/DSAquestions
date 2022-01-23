@@ -1,0 +1,36 @@
+import java.util.*;
+import java.io.*;
+
+public class Main {
+
+    public static int pivot_index(int[]arr) {
+        int i = 0;
+        int j = arr.length - 1;
+        int sumi = 0;
+        int sumj = 0;
+        while(i <= j-1){
+            if(sumi == 0  || sumi < sumj){ sumi += arr[i]; i++;}
+            else if(sumi > sumj){sumj += arr[j] ; j--;}
+            // System.out.println(sumi + " " + sumj);
+        }
+        
+        if(sumi == sumj) return i;
+        
+        return -1;
+    }
+
+    public static void main(String[]args) {
+        //input work
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+
+        int[]arr = new int[n];
+
+        for(int i=0; i < arr.length;i++) {
+            arr[i] = scn.nextInt();
+        }
+
+        int pi = pivot_index(arr);
+        System.out.println(pi);
+    }
+}
