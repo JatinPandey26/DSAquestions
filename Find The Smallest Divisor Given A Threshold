@@ -1,0 +1,28 @@
+    public static int findSmallestDivisor(int[]nums,int th) {
+       int max = 0;
+        
+        for(int val : nums) max = Math.max(max,val);
+        
+        
+        int li = 0;
+        int hi = max;
+        int ans = Integer.MAX_VALUE;
+        while(li <= hi){
+            int mid = (li+hi)/2;
+            
+            int div = 0;
+            
+            for(int val : nums) div += (int)Math.ceil(val*1.0/mid);
+            
+            if(div <= th){ 
+                ans = Math.min(ans,mid);
+                hi = mid-1;
+            }
+            else{
+                li = mid+1;
+            }
+            
+        }
+        
+        return ans;
+    }
