@@ -1,0 +1,45 @@
+  public static boolean isPossible(int[] arr, int m, int maxLoad) {
+
+    int st = 1;
+    int currLoad = 0;
+    for (int val : arr) {
+      currLoad += val;
+      if (currLoad > maxLoad) {
+        st++;
+        if (st > m) return false;
+        currLoad = val;
+      }
+    }
+
+    return true;
+
+  }
+  public static int shipWithinDays(int[]arr, int m) {
+    int sum = 0;
+    int max = 0;
+
+    for (int val : arr) {
+      sum += val;
+      max = Math.max(max, val);
+    }
+
+    int li = max;
+    int hi = sum;
+    int ans = 0;
+
+    while (li <= hi) {
+
+      int mid = (li + hi) / 2;
+
+      if (isPossible(arr, m, mid)) {
+        ans = mid;
+        hi = mid - 1;
+      }
+      else {
+        li = mid + 1;
+      }
+
+    }
+
+    return ans;
+  }
