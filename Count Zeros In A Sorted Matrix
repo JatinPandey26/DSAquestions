@@ -1,0 +1,16 @@
+  public static int countZeros(int[][]mat) {
+    //write your code here
+    int i = 0;
+    int j = mat[0].length-1;
+    int ans = 0;
+    while(i < mat.length){
+        while(j >= 0 && mat[i][j] != 0){
+            j--;
+        }
+        ans += j + 1;
+        j = mat[0].length-1;
+        i++;
+    }
+    
+    return ans;
+  }
