@@ -1,0 +1,13 @@
+  public static int countBuildings(int[]ht) {
+    int leftMax = ht[0];
+    int ans = 1;
+
+    for (int i = 1 ; i < ht.length ; i++) {
+      if (leftMax < ht[i]) {
+        ans++;
+        leftMax = ht[i];
+      }
+    }
+
+    return ans;
+  }
