@@ -1,0 +1,14 @@
+  public static int[] find(int[]arr1, int[]arr2) {
+    
+    int[] psa = new int[100001];
+    
+    for(int val : arr2) psa[val]++;
+    
+    for(int i = 1 ; i < psa.length ; i++) psa[i] += psa[i-1]; 
+    
+    int[] ans = new int[arr1.length];
+    
+    for(int i = 0 ; i < arr1.length ; i++) ans[i] = psa[arr1[i]]; 
+    
+    return ans;
+  }
