@@ -1,0 +1,14 @@
+  public static boolean shouldPunish(int[]roll, int[]marks, double avg) {
+   
+   int sum = 0;
+   for(int i = 0 ; i < roll.length ; i++){
+       int deductance = Math.abs(i - roll[i] + 1);
+       sum += marks[i] - deductance;
+   }
+   
+   double currAvg = sum*1.0/(roll.length)*1.0;
+   
+   if(currAvg >= avg) return true;
+   return false;
+   
+  }
