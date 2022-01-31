@@ -1,0 +1,14 @@
+ public static ArrayList<Integer>  leaders(int[]arr) {
+    ArrayList<Integer> ans = new ArrayList<>();
+    ans.add(arr[arr.length - 1]);
+    int rmax = arr[arr.length - 1];
+    
+    for(int i = arr.length-2 ; i>= 0 ; i--){
+        if(arr[i] >= rmax){
+            ans.add(arr[i]);
+            rmax = arr[i];
+        } 
+    }
+    Collections.reverse(ans);
+    return ans; 
+  }
