@@ -1,0 +1,11 @@
+  public static String largestNumber(int[]nums) {
+    String[] arr = new String[nums.length];
+    for(int i = 0 ; i < nums.length ; i++) arr[i] = nums[i] + "";
+    
+    Arrays.sort(arr,(a,b) -> Long.compare(Long.parseLong(b+a),Long.parseLong(a+b)));
+    
+    String ans = "";
+    for(String s : arr) ans += s;
+    
+    return ans;
+  }
