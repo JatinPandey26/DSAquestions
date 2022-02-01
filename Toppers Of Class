@@ -1,0 +1,43 @@
+  public static class pair implements Comparable<pair> {
+    int val;
+    int idx;
+    pair(int val,int idx){
+        this.val = val;
+        this.idx = idx;
+    }
+    
+    public int compareTo(pair o){
+        
+        if(this.val != o.val){
+            return this.val - o.val;
+        }
+        else{
+            return o.idx - this.idx;
+        }
+        
+    }
+    
+  }
+  public static int[] kToppers(int[]marks, int k) {
+    
+    PriorityQueue<pair> pq = new PriorityQueue<>();
+    
+    for(int i = 0 ; i < marks.length ; i++){
+        pair p = new pair(marks[i],i);
+        
+        if(pq.size() < k) pq.add(p);
+        else{
+            if(pq.peek().val < p.val){
+                pq.remove();
+                pq.add(p);
+            }
+        }
+        
+        
+    }
+    int[] ans = new int[k];
+    
+    for(int i = k-1 ; i >= 0 ; i--) ans[i] = pq.remove().idx;
+    
+    return ans;
+  }
