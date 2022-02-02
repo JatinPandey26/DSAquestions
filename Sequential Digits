@@ -1,0 +1,16 @@
+  public static ArrayList<Integer> sequentialDigits(int low, int high) {
+    int lowL = (low+"").length();
+    int highL = (high+"").length();
+    ArrayList<Integer> ans = new ArrayList<>();
+    String num = "123456789";
+    
+    for(int i = lowL ; i<= highL ; i++){
+        
+        for(int j = 0 ; j <= num.length() - i ; j++){
+            int toPut = Integer.valueOf(num.substring(j,j+i));
+            if(toPut >= low && toPut <= high) ans.add(toPut);
+        }
+        
+    }
+    return ans;
+  }
