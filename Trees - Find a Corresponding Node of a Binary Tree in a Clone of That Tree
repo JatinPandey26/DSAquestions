@@ -1,0 +1,23 @@
+public static TreeNode getTargetCopy(TreeNode p1, TreeNode p2, TreeNode t){
+        
+    return getTargetCopyHelper(p1,p2,t);
+
+    }
+
+    public static TreeNode getTargetCopyHelper(TreeNode p1, TreeNode p2, TreeNode t){
+        
+    if(p1 == null) return null;
+
+    if(p1.val == t.val){
+        return p2;
+    }
+
+    TreeNode left = getTargetCopyHelper(p1.left,p2.left,t);
+    if(left != null) return left;
+
+    TreeNode right = getTargetCopyHelper(p1.right,p2.right,t);
+    if(right != null) return right;
+    
+
+    return null;
+    }
