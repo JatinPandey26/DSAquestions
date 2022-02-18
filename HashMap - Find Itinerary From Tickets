@@ -1,0 +1,28 @@
+String src = "";
+
+		HashMap<String , Boolean> sourceMap = new HashMap<>();
+
+		for(String s : map.keySet()){
+			String des = map.get(s);
+		    if(sourceMap.containsKey(s) == false){
+            sourceMap.put(s,true);
+			}
+
+			sourceMap.put(des,false);
+		}
+
+		for(String s : sourceMap.keySet()){
+			if(sourceMap.get(s)){
+				src = s;
+				break;
+			}
+		}
+
+		String ans = src + " -> ";
+
+		while(map.containsKey(src)){
+			ans += map.get(src) + " -> ";
+			src = map.get(src);
+		}
+     
+	    System.out.println(ans.substring(0,ans.length()-4) + ".");
