@@ -1,0 +1,27 @@
+	public static boolean solution(int[] arr, int k){
+		
+
+		HashMap<Integer,Integer> remMap = new HashMap<>();
+
+		for(int i : arr){
+			remMap.put(i%k,remMap.getOrDefault(i%k,0)+1);
+		}
+
+		for(int rem : remMap.keySet()){
+			if(rem == 0){
+            if(remMap.get(rem)%2 != 0) return false;
+			}
+			else if(2 * rem == k){
+            if(remMap.get(rem)%2 != 0) return false;
+			}
+			else{
+            if(remMap.containsKey(Math.abs(k-rem))){
+				if(remMap.get(rem) != remMap.get(Math.abs(k-rem))) return false;
+			}
+			else return false;
+			}
+		}
+
+		return true;
+
+	}
