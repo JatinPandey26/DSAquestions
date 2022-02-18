@@ -1,0 +1,37 @@
+	public static ArrayList<Integer> solution(int[] arr, int k) {
+		ArrayList<Integer> ans = new ArrayList<>(); 
+		HashMap<Integer , Integer> map = new HashMap<>();
+
+		int i = 0;
+
+		while(i < k){
+			map.put(arr[i],map.getOrDefault(arr[i],0)+1);
+			i++;
+		} 
+
+		ans.add(map.keySet().size());
+
+
+		i = 1;
+		int j = k;
+
+		while(j < arr.length){
+
+        int toRem = arr[i-1];
+		int toAdd = arr[j];
+        
+		
+        map.put(toRem,map.get(toRem)-1);
+		map.put(toAdd,map.getOrDefault(toAdd,0)+1);
+        
+        if(map.get(toRem) == 0){
+			map.remove(toRem);
+		}
+
+        ans.add(map.keySet().size());
+        i++;
+		j++;
+		}
+
+		return ans;
+	}
