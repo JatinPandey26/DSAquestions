@@ -1,0 +1,82 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+  
+  public static HashMap<String , Integer> solution(HashMap<String,String> map){
+
+  String ceo = "";
+
+  HashMap<String,HashSet<String>> tree = new HashMap<>();
+
+  for(String emp : map.keySet()){
+    String manager = map.get(emp);
+
+    if(emp.equals(manager)){
+      ceo = manager;
+    }
+    else{
+     if(tree.containsKey(manager)){
+       HashSet<String> emps = tree.get(manager);
+       emps.add(emp);
+     }
+     else{
+       HashSet<String> emps = new HashSet<>();
+       emps.add(emp);
+       tree.put(manager,emps);
+     }
+    }
+
+
+
+  }
+
+  HashMap<String , Integer> result = new HashMap<>();
+
+  getEmp(tree,ceo,result);
+
+  return result;
+  
+  }
+
+  public static int getEmp(HashMap<String,HashSet<String>> tree , String manager ,HashMap<String , Integer> result){
+  
+  if(tree.containsKey(manager) == false){
+  result.put(manager,0);
+  return 1;
+  } 
+
+  HashSet<String> emps = tree.get(manager);
+  
+  int noOfemps = 0;
+
+  for(String emp : emps){
+  noOfemps += getEmp(tree,emp,result);
+  }
+
+  result.put(manager,noOfemps);
+
+  return noOfemps + 1;
+
+  }
+  
+
+  public static void main(String[] args){
+    Scanner sn = new Scanner(System.in);
+    int n = sn.nextInt();
+    
+    HashMap<String,String> map = new HashMap<>();
+
+    for(int i = 0 ; i < n ; i++){
+      map.put(sn.next() , sn.next());
+    }
+
+    HashMap<String , Integer> ans = solution(map);
+
+    for(String manager : ans.keySet()){
+      System.out.println(manager + " " + ans.get(manager));
+    }
+
+  }
+
+}
