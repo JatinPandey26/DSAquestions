@@ -1,0 +1,26 @@
+	public static int solution(int[] arr) {
+		
+		HashMap<Integer,Integer> map = new HashMap<>();
+
+		int i = -1;
+		int sum = 0;
+
+        map.put(sum,i);
+
+		int ans = 0; 
+
+		while(i < arr.length-1){
+
+        i++;
+		sum += arr[i];
+		if(map.containsKey(sum) == false){
+			map.put(sum,i);
+		}
+		else{
+		ans = Math.max(ans,i - map.get(sum));	
+		}
+
+		}
+
+		return ans;
+	}
