@@ -1,0 +1,47 @@
+public static int solution(String str) {
+		
+		HashMap<Character,Integer> map = new HashMap<>();
+
+		int i = 0;
+		int j = 0;
+        int ans = 0;
+		while(i < str.length()){
+			
+			// Acquire
+			while(i < str.length()){
+				char ch = str.charAt(i);
+                i++;
+                map.put(ch,map.getOrDefault(ch,0)+1);
+ 
+				if(map.get(ch) == 2){
+		        			
+                break;
+				} 
+				else{
+					ans += i-j ;
+				}
+                
+			}
+
+			// Release
+
+			while(j<i){
+           
+            char ch = str.charAt(j);
+            j++;
+            map.put(ch,map.get(ch)-1);
+             
+			if(map.get(ch) == 1){
+				ans += i - j;
+				
+				break;
+			} 
+			
+			}
+
+			
+	  
+		}
+		
+		return ans;
+	}
