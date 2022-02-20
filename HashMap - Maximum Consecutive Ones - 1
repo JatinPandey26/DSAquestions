@@ -1,0 +1,52 @@
+public static int solution(int[] arr){
+        
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int i = -1;
+        int j = -1;
+        int ans = 0;
+        int cnt0 = 0;
+
+        while(true){
+        boolean f1 = false;
+        boolean f2 = false;
+        // acquire 
+
+        while(i < arr.length-1){
+        f1 = true;
+        i++;
+        
+        int n = arr[i];
+
+        if(n == 0){
+        cnt0++;
+        }
+        
+        if(cnt0 <= 1){
+            ans = Math.max(ans,i-j);
+        }
+        else break;
+
+        }
+
+        // release 
+
+        while(j < i){
+        f2 = true;    
+        j++;
+         
+        int n = arr[j];
+
+        if(n == 0) cnt0--;
+
+        if(cnt0 == 1){
+            ans = Math.max(ans,i-j-1);
+            break;
+        } 
+
+        }
+
+        if(!f1 && !f2) break;
+
+        }
+        return ans;
+    }
