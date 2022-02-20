@@ -1,0 +1,59 @@
+public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0 ; i  < n; i++){
+            arr[i] = scn.nextInt();
+        }
+       
+        HashSet<Integer> set = new HashSet<>();
+
+        for(int i : arr) set.add(i);
+
+        int k = set.size();
+
+		HashMap<Integer,Integer> map = new HashMap<>();
+        int i = -1;
+        int j = -1;
+        int ans = 0;
+
+        while(true){
+        boolean f1 = false;
+        boolean f2 = false;
+        // acquire 
+
+        while(i < arr.length-1){
+        f1 = true;
+        i++;
+        map.put(arr[i],map.getOrDefault(arr[i],0)+1);
+
+        if(map.keySet().size() == k) {
+            ans += arr.length-i;
+            break;
+        }
+
+        }
+
+        // release 
+
+        while(j < i){
+        f2 = true;    
+        j++;
+        map.put(arr[j],map.get(arr[j])-1);
+
+        if(map.get(arr[j]) == 0) map.remove(arr[j]);
+
+        if(map.keySet().size() == k) {
+            ans += arr.length-i;
+        }
+        else break;
+
+        }
+
+        if(!f1 && !f2) break;
+
+        }
+
+        System.out.println(ans);
+		
+	}
