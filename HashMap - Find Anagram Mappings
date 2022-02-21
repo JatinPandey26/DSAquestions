@@ -1,0 +1,35 @@
+public static class Pair {
+		int idx;
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+	}
+	public static int[] anagramMappings(int[] arr1, int[] arr2) {
+		
+		HashMap<Integer,Pair> map = new HashMap<>();
+
+		for(int i = 0 ; i < arr2.length ; i++){
+		if(map.containsKey(arr2[i])){
+        ArrayList<Integer> list = map.get(arr2[i]).indexes;
+		list.add(i);
+		Pair p = new Pair();
+		p.indexes = list;
+		map.put(arr2[i],p);
+		}	
+		else{
+        ArrayList<Integer> list = new ArrayList<Integer>();
+		list.add(i);
+		Pair p = new Pair();
+		p.indexes = list;
+		map.put(arr2[i],p);
+		}
+		}
+
+		int[] ans = new int[arr1.length];
+
+		for(int i = 0 ; i < arr1.length ; i++){
+			Pair p = map.get(arr1[i]);
+			ans[i] = p.indexes.get(p.idx);
+			p.idx++;
+		}
+
+		return ans;
+	}
