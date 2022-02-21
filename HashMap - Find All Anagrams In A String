@@ -1,0 +1,46 @@
+public static void findAnagrams(String s, String p) {
+	ArrayList<Integer> ans = new ArrayList<Integer>();	
+
+	HashMap<Character,Integer> pmap = new HashMap<>();
+	for(int k = 0 ; k < p.length() ; k++) pmap.put(p.charAt(k),pmap.getOrDefault(p.charAt(k),0)+1);
+    
+ 
+
+	HashMap<Character,Integer> map = new HashMap<>();
+
+
+    int i = -1;
+	int j = -1;
+
+	while(i < p.length()-1){
+		i++;
+		char ch = s.charAt(i);
+		map.put(ch,map.getOrDefault(ch,0)+1);      
+	}
+
+	if(pmap.equals(map)) ans.add(j+1);
+
+	
+		
+		while(i<s.length()-1){
+			
+			i++;
+			j++;
+			char chi = s.charAt(i);
+			char chj = s.charAt(j);
+			map.put(chi,map.getOrDefault(chi,0)+1);
+            map.put(chj,map.get(chj)-1);
+
+			if(map.get(chj) == 0) map.remove(chj);
+
+			if(map.equals(pmap)) ans.add(j+1);  
+		}
+      
+		
+		
+
+	System.out.println(ans.size());
+
+	for(int x : ans) System.out.print(x + " ");
+        
+	}
