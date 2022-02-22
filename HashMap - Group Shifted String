@@ -1,0 +1,33 @@
+public static ArrayList<ArrayList<String>> groupShiftedStrings(String[] strs) {
+		ArrayList<ArrayList<String>> ans = new ArrayList<ArrayList<String>>();
+		HashMap<String,ArrayList<String>> map = new HashMap<>();
+
+		for(String str : strs){
+           String key = "";
+           for(int i = 0 ; i < str.length()-1;i++){
+			int diff  =  (str.charAt(i+1) - str.charAt(i));
+			if(diff < 0) diff += 26;
+			key += diff  + "#";   
+		   }
+
+		   if(map.containsKey(key)){
+			ArrayList<String> list = map.get(key);  
+			list.add(str);  
+            map.put(key,list);
+		   }
+		   else{
+			ArrayList<String> list = new ArrayList<String>();  
+			list.add(str);
+			map.put(key,list); 
+		   }
+
+		}
+
+		// System.out.println(map);
+
+		for (String key : map.keySet()) {
+			ans.add(map.get(key));
+		}
+
+		return ans;
+	}
