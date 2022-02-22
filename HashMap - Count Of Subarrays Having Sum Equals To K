@@ -1,0 +1,17 @@
+public static int solution(int[] arr, int target){
+		HashMap<Integer,Integer> map = new HashMap<>();
+		int psum = 0;
+		int ans = 0;
+		map.put(0,1);
+
+		for(int i : arr){
+			psum += i;
+
+			if(map.containsKey(psum - target)) ans += map.get(psum-target);
+			
+
+			map.put(psum,map.getOrDefault(psum,0)+1);
+		}
+		
+		return ans;
+	}
