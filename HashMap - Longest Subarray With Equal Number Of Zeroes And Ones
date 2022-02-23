@@ -1,0 +1,19 @@
+public static int solution(int[] arr) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int psum = 0;
+        int ans = 0;
+        map.put(0,-1);
+
+        for(int i = 0 ; i < arr.length ; i++){
+            psum += arr[i] == 0?-1:1;
+            
+            if(map.containsKey(psum)){
+                ans = Math.max(ans,i-map.get(psum));
+            }
+            else map.put(psum,i);
+            
+            
+        }
+
+        return ans;
+    }
