@@ -1,0 +1,27 @@
+public static void completeTask(int n, int m, int[] arr) {
+		// write your code here
+		HashSet<Integer> set = new HashSet<>();
+        for(int i : arr) set.add(i);
+		boolean flag = true;
+        ArrayList<Integer> oneS = new ArrayList<>();
+		ArrayList<Integer> twoS = new ArrayList<>();
+
+		for(int i = 1 ; i <= n ; i++){
+        if(set.contains(i) == false){
+           if(flag) {
+			   oneS.add(i);
+			   flag = false;
+			   }
+			else {
+				twoS.add(i);
+				flag = true;
+			}   
+		}
+		}
+
+		for(int i : oneS) System.out.print(i + " ");
+		System.out.println();
+		for(int i : twoS) System.out.print(i + " ");
+		System.out.println();
+
+	}
