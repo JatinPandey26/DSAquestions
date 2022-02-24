@@ -1,0 +1,21 @@
+public static int solve(int[][] num1, int[][] num2, int k) {
+		// write your code here
+
+		HashMap<Integer,Integer> map = new HashMap<>();
+
+		for(int i = 0 ; i < num2.length ; i++){
+			for(int j = 0 ; j < num2[0].length ; j++){
+              map.put(num2[i][j],map.getOrDefault(num2[i][j],0)+1);
+			}
+		}
+        int ans = 0;
+		for(int i = 0 ; i < num1.length ; i++){
+			for(int j = 0 ; j < num1[0].length ; j++){
+              if(map.containsKey(k - num1[i][j])){
+				  ans += map.get(k - num1[i][j]);
+			  }
+			}
+		}
+
+		return ans;
+	}
