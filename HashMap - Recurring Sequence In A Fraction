@@ -1,0 +1,33 @@
+public static String solution(int num, int den) {
+        // write your code here
+           
+
+        HashMap<Integer,String> map = new HashMap<>();   
+  
+        int quo = num/den;
+        int rem = num%den;
+        String ans = quo + "";
+        if(rem == 0) return ans;
+        else{
+            ans += ".";
+            while(rem!=0){
+                if(map.containsKey(rem)){
+                    int len = map.get(rem).length();
+                    ans = ans.substring(0,len) + "(" + ans.substring(len) + ")";
+                    return ans;
+                }
+                else{
+                map.put(rem,ans);
+                rem*=10;
+                quo = rem/den;
+                rem = rem%den;
+                ans += quo;
+                }
+                
+            }
+        }
+
+
+        
+        return ans;
+    }
