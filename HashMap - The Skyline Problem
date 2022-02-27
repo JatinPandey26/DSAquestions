@@ -1,0 +1,48 @@
+public static class pair implements Comparable<pair>{
+    int pos ;
+    int ht;
+    pair(int pos , int ht){
+      this.pos = pos;
+      this.ht = ht;
+    }
+  @Override
+  public int compareTo(pair o){
+    if(this.pos != o.pos) return this.pos - o.pos;
+    return this.ht - o.ht;
+  }
+  }
+  public static List<List<Integer>> getSkyline(int[][] buildings) {
+    // write your code here
+    List<List<Integer>> ans = new ArrayList<>();
+
+    List<pair> list = new ArrayList<>();
+    for(int[] building : buildings){
+      pair start = new pair(building[0],-building[2]);
+      pair end = new pair(building[1],building[2]);
+      list.add(start);
+      list.add(end);
+    }
+    Collections.sort(list);
+      
+      // for(pair p : list) System.out.println(p.pos + " " + p.ht); 
+
+    int currHt = 0;
+    PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+    pq.add(0);
+    for(pair p : list){
+      if(p.ht < 0){
+      pq.add(-p.ht);
+      }
+      else{
+       pq.remove(p.ht);
+      }
+      if(currHt != pq.peek()){
+        currHt = pq.peek();  
+        List<Integer> subAns = new ArrayList<>();
+        subAns.add(p.pos);
+        subAns.add(currHt);
+        ans.add(subAns);
+      }  
+    }
+    return ans;
+  }
