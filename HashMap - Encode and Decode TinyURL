@@ -1,0 +1,15 @@
+static HashMap <String , String > map = new HashMap<>();
+    public static String encode(String longUrl)
+    {
+      String s = "";
+      s += (char) Math.floor(Math.random()*100);
+      while(map.containsKey(s)) s += (char) Math.floor(Math.random()*100);
+      map.put(s,longUrl);
+      return s;
+
+    }
+    
+    public static String decode(String shortUrl)
+    {
+      return map.get(shortUrl);
+    }
