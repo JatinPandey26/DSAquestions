@@ -1,0 +1,21 @@
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) {
+	 int n = 5;
+	 
+	 for(int i = 0 ; i < n ; i++){
+	     // spaces 
+	     for(int j = 0 ; j < n - i - 1 ; j++) System.out.print(" ");
+	     //
+	     System.out.print("1 ");
+	     double prev = 1.0 ;
+	     for(int r = 0 ; r < i ; r++){
+	         double factor = (double)(i-r)/(double)(r+1);
+	         prev = prev*factor;
+	         System.out.print((int)prev + " ");
+	     }
+	     System.out.println();
+	 }
+	}
+}
