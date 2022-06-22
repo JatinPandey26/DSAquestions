@@ -1,0 +1,63 @@
+ArrayList <Integer> boundary(Node node)
+	{
+	    ArrayList<Integer> ans = new ArrayList<>();
+	    ans.add(node.data);
+	    if(isLeaf(node)){
+	        return ans;
+	    }
+	    
+	   if(node.left != null)  addLeft(node.left,ans);
+	   // System.out.println(ans);
+	    addLeaves(node,ans);
+	   // System.out.println(ans);
+	   if(node.right != null) addRight(node.right,ans);
+	   
+	   // System.out.println(ans);
+	    return ans;
+	}
+	
+	boolean isLeaf(Node p){
+	    
+	    return (p.left == null ) && (p.right == null);
+	}
+	
+	void addLeft(Node curr , ArrayList<Integer> ans){
+	    Node node = curr;
+	    while(node != null){
+	        if(isLeaf(node) == false) ans.add(node.data);
+	        if(node.left != null) node = node.left;
+	        else node = node.right;
+	    }
+	    
+	}
+	
+	void addLeaves(Node curr , ArrayList<Integer> ans){
+	    Node node = curr;
+	    if(node == null) return;
+	    if(isLeaf(node)){
+	        ans.add(node.data);
+	        return;
+	    }
+	    
+	    if(node.left != null) addLeaves(node.left,ans);
+	    if(node.right != null) addLeaves(node.right,ans);
+	    
+	}
+	
+	void addRight(Node curr , ArrayList<Integer> ans){
+	    Node node = curr;
+	    
+	    ArrayList<Integer> temp = new ArrayList<>();
+	    
+	    
+	    while(node != null){
+	        
+	        if(isLeaf(node) == false) temp.add(node.data);
+	        if(node.right != null) node = node.right;
+	        else node = node.left;
+	    }
+	    
+	    Collections.reverse(temp);
+	    ans.addAll(temp);
+	    
+	}
