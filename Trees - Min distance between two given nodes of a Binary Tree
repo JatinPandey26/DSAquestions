@@ -1,0 +1,28 @@
+int ans = 0;
+    int findDist(Node root, int a, int b) {
+        
+        search(root,a,b);
+        return ans;
+        
+    }
+    
+    int search(Node root , int a , int b ){
+        if(root == null) return -1;
+        
+        boolean self = (root.data == a) || (root.data == b);
+        int left = search(root.left,a,b);
+        int right = search(root.right,a,b);
+        
+        if(left != -1 && right != -1 && ans == 0){
+            ans = left + right;
+        }
+        else if(left != -1 && self && ans == 0) ans = left;
+        else if(right != -1 && self && ans == 0) ans = right;
+        
+        int retVal = -1;
+        if(left != -1) retVal = Math.max(retVal,left);
+        if(right != -1) retVal = Math.max(retVal,right);
+        if(self) retVal = Math.max(retVal,0);
+        return retVal == -1 ? -1 : retVal+1;
+    }
+}
