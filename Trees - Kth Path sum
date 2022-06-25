@@ -1,0 +1,25 @@
+ 
+    public int pathSum(TreeNode root, int targetSum) {
+        
+      HashMap<Integer,Integer> map = new HashMap<>();
+      map.put(0,1);  
+      return solution(root,targetSum,0,map);
+       
+       
+        
+    }
+    
+    public int solution(TreeNode root , int targetSum , int currSum ,HashMap<Integer,Integer> map){
+        if(root== null) return 0;
+        int sum = currSum + root.val;
+        int ans = 0;
+        if(map.containsKey(sum-targetSum)){
+          ans += map.get(sum-targetSum);
+        } 
+        map.put(sum,map.getOrDefault(sum,0)+1);  
+
+        ans += solution(root.left,targetSum,sum,map) + solution(root.right,targetSum,sum,map);
+        
+        map.put(sum,map.get(sum)-1);
+        return ans;
+    }
