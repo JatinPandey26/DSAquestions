@@ -1,0 +1,31 @@
+Node binaryTreeToBST(Node node)
+    { 
+       
+       ArrayList<Integer> inOrder = new ArrayList<>();
+       getInorder(node,inOrder);
+       Collections.sort(inOrder);
+    //   System.out.println(inOrder);
+       getTree(node , inOrder);
+       return node;
+    }
+    
+    void getInorder(Node node , ArrayList<Integer> inOrder){
+        
+        if(node == null) return;
+        
+        getInorder(node.left,inOrder);
+        inOrder.add(node.data); 
+        getInorder(node.right,inOrder);
+
+    }
+    
+    void getTree(Node node , ArrayList<Integer> inOrder ){
+        
+        if(node == null) return;
+        
+        getTree(node.left,inOrder);
+        node.data = inOrder.get(0);   
+        inOrder.remove(0);
+        getTree(node.right,inOrder);
+        
+    }
