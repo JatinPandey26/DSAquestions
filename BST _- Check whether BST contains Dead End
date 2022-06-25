@@ -1,0 +1,15 @@
+public static boolean isDeadEnd(Node root)
+    {
+        return solution(root,1,Integer.MAX_VALUE);
+    }
+    
+    public static boolean solution(Node root , int low , int high){
+        
+        if(root==null) return false;
+        
+        if(root.data == low && root.data == high) return true;
+        
+        
+        return solution(root.left , low , root.data-1) || solution(root.right,root.data+1 , high);
+        
+    }
