@@ -1,0 +1,19 @@
+ Node pre;
+    
+    public void solution(Node root){
+        
+        if(root == null) return;
+        
+        solution(root.left);
+        
+        if(pre == null) pre = root;
+        else{
+            
+            pre.next = root;
+            pre = pre.next;
+            
+        }
+        
+        solution(root.right);
+        
+    }
