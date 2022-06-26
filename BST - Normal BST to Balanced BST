@@ -1,0 +1,33 @@
+Node buildBalancedTree(Node root) 
+    {
+        
+       ArrayList<Integer> inOrder = new ArrayList<>();
+       getInorder(root,inOrder);
+       
+       return makeTree(inOrder,0,inOrder.size()-1);
+       
+    }
+    
+        void getInorder(Node node , ArrayList<Integer> inOrder){
+        
+        if(node == null) return;
+        
+        getInorder(node.left,inOrder);
+        inOrder.add(node.data); 
+        getInorder(node.right,inOrder);
+
+    }
+    
+    Node makeTree(ArrayList<Integer> inOrder , int l ,int h){
+        
+        if(l > h) return null;
+        
+        int mid = l + (h-l)/2;
+        
+        Node node = new Node(inOrder.get(mid));
+        
+        node.left = makeTree(inOrder,l,mid-1);
+        node.right = makeTree(inOrder,mid+1,h);
+        
+        return node;
+    }
