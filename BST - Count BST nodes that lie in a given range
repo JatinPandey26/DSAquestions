@@ -1,0 +1,16 @@
+ int getCount(Node root,int l, int h)
+    {
+    
+    if(root == null) return 0;        
+        
+    int ans = 0;
+    
+    if(l < root.data) ans += getCount(root.left,l,h);
+    if(h > root.data) ans += getCount(root.right,l,h);
+    
+    
+    if(root.data >= l && root.data <= h) ans += 1;
+    
+    return ans;
+    
+    }
