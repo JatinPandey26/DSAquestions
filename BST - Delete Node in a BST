@@ -1,0 +1,49 @@
+public TreeNode deleteNode(TreeNode root, int key) {
+        
+       TreeNode ptr = root;
+        if(root == null) return null;
+        if(root.val == key) return solution(root); 
+       while(ptr != null){
+           
+           if(ptr.val > key){
+               if(ptr.left != null && ptr.left.val == key){ptr.left = solution(ptr.left); break;} 
+               else ptr = ptr.left;
+           }
+           else{
+               if(ptr.right != null && ptr.right.val == key){ptr.right = solution(ptr.right); break;} 
+               else ptr = ptr.right;
+           }
+           
+       }
+        
+        return root;
+        
+        }
+    
+   public TreeNode solution(TreeNode node){
+       
+       if(node.left == null && node.right == null) return null;
+       
+       else if(node.left == null && node.right != null) return node.right;
+       
+       else if(node.left != null && node.right == null) return node.left;
+       
+       else{
+           
+           TreeNode rightNode = node.right;
+           TreeNode left_rightMost = getRightMost(node.left);
+           
+           left_rightMost.right = rightNode;
+           
+           return node.left;
+           
+       }
+   } 
+    
+    public TreeNode getRightMost(TreeNode node){
+        
+        while(node.right != null) node = node.right;
+        
+        return node;
+        
+    }
