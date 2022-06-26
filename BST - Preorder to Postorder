@@ -1,0 +1,21 @@
+public static Node post_order(int pre[], int size) 
+{   idx = 0;
+    Node post = solution(pre,Integer.MIN_VALUE,Integer.MAX_VALUE);
+    
+    return post;
+}
+static int idx;
+public static Node solution(int[] pre , int low , int high){
+    
+    if(idx == pre.length) return null;
+    
+    if(pre[idx] > low && pre[idx] < high){
+    Node node = new Node(pre[idx]);
+    idx += 1;
+    node.left = solution(pre,low,node.data);
+    node.right = solution(pre,node.data,high);
+    return node;
+    }
+    
+    return null;
+}
