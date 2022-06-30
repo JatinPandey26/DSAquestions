@@ -1,0 +1,16 @@
+ void deleteNode(Node del)
+    {
+         while(del.next != null){
+             
+             del.data = del.next.data;
+             
+             if(del.next.next == null){
+                 del.next = null;
+                 break;
+             }
+             
+             del = del.next;
+         }
+         
+         del = null;
+    }
